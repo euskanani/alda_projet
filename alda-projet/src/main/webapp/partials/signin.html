@@ -1,0 +1,36 @@
+	<!-- Start: MAIN CONTENT -->
+	<div class="content">
+		<div class="container">
+			<div class="page-header">
+				<h1>Connexion à AldaFreeMarket</h1>
+			</div>
+			<div class="row">
+				<div class="span6 offset3">
+					<h4 class="widget-header">
+						<i class="icon-lock"></i> Connexion à AldaFreeMarket
+					</h4>
+					<div class="widget-body">
+						<div class="center-align">
+							<form class="form-horizontal form-signin-signup"
+								ng-controller="AuthController">
+								<input type="text" name="email" placeholder="Email"
+									ng-model="email" required> <input type="password"
+									name="password" placeholder="Password" ng-model="password"
+									required>
+								<div>
+									<input type="submit" value="Connexion"
+										class="btn btn-primary btn-large" ng-click="submitLogin()">
+								</div>
+							</form>
+							<h4>
+								<i class="icon-question-sign"></i> pas de compte?
+							</h4>
+							<a href="#/inscription" class="btn btn-large bottom-space">Inscription</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End: MAIN CONTENT -->

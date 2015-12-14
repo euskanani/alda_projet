@@ -1,0 +1,31 @@
+package fr.universite.bordeaux.repositories;
+
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import fr.universite.bordeaux.entities.Announcement;
+import fr.universite.bordeaux.entities.User;
+
+@Stateless
+public class AnnoucementRepository {
+    private static final String JPQL_SELECT_PAR_EMAIL = "SELECT a FROM Announcement a WHERE a.user=:user";
+    private static final String PARAM_USER = "user";
+    @PersistenceContext(unitName = "aldaPersistenceUnit")
+    private EntityManager entityManager;
+
+    public void addAnnouncement(Announcement announcement){
+        entityManager.persist(announcement);
+    }
+
+    public List<Announcement> findAnnouncementsByUser(User user) {
+        Query requete = entityManager.createQuery(JPQL_SELECT_PAR_EMAIL);
+        requete.setParameter(PARAM_USER, user);
+        @SuppressWarnings("unchecked")
+        List<Announcement> announcements = (List<Announcement>)requete.getResultList();
+        return announcements;
+    }
+}

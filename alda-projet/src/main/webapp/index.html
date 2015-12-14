@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="Projet de programmation Architecture Logicielle distribuée et adaptative">
+<meta name="author" content="Kanani Eusebe">
+<meta name="author" content="Youssef Chagtab">
+<title>Accueil</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link href="css/font-awesome-ie7.css" rel="stylesheet">
+<link href="css/boot-business.css" rel="stylesheet">
+
+</head>
+<body ng-app="myApp">
+
+	<!-- including header  
+	<div ng-include src="'header.html'"></div> -->
+
+	<!-- Start: HEADER -->
+
+	<!-- Start: Navigation wrapper -->
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand brand-bootbus">AldaMarket</a>
+				<!-- Below button used for responsive navigation -->
+				<button type="button" class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<!-- Start: Primary navigation -->
+				<div class="nav-collapse collapse">
+					<ul class="nav pull-right" ng-controller='HeaderController'>
+						
+						<li>
+							<form class="navbar-form navbar-left" role="search">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search">
+
+									<button type="submit" class="btn btn-pink">
+										<i class="icon icon-search"></i>
+									</button>
+								</div>
+							</form>
+						</li>
+						
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">Produits et services<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="nav-header">PRODUITS</li>
+								<li><a ui-sref="product">Product1</a></li>
+								<li><a ui-sref="product">Product2</a></li>
+								<li><a ui-sref="product">Product3</a></li>
+								<li><a ui-sref="products">All products</a></li>
+								<li class="divider"></li>
+								<li class="nav-header">SERVICES</li>
+								<li><a ui-sref="service">Service1</a></li>
+								<li><a ui-sref="service">Service2</a></li>
+								<li><a ui-sref="service">Service3</a></li>
+								<li><a ui-sref="services">Tous les services</a></li>
+							</ul></li>
+						
+						<li><a ui-sref="annonce" data-ng-show="user.isConnected()">Ajouter une annonce</a></li>
+  
+						<li class="dropdown" data-ng-show="user.isConnected()"><a
+							href="#" class="dropdown-toggle" data-toggle="dropdown">{{
+								user.getUser().firstName }}<b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="our_works.html">Mes annonces</a></li>
+								<li><a href="patnerships.html">Historique</a></li>
+								<li><a href="news.html">offres gardés</a></li>
+								<li><a href="events.html">Evenements</a></li>
+	                            <li><a ui-sref="connexion">Deconnexion</a></li>
+							</ul></li> 
+						
+
+						<li><a ui-sref="inscription" data-ng-hide="user.isConnected()">Inscription</a></li>
+
+						<li><a ui-sref="connexion" data-ng-hide="user.isConnected()">Connexion</a></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End: Navigation wrapper -->
+
+	<!-- End: HEADER -->
+
+
+
+
+	<div ui-view></div>
+
+
+
+
+	<!-- including footer 
+   <div ng-include src="'footer.html'"></div> -->
+
+
+	<!-- Start: FOOTER -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="span2">
+					<h4>
+						<i class="icon-star icon-white"></i> Products
+					</h4>
+					<nav>
+						<ul class="quick-links">
+							<li><a href="product.html">Product1</a></li>
+							<li><a href="product.html">Product2</a></li>
+							<li><a href="product.html">Product3</a></li>
+							<li><a href="all_products.html">All products</a></li>
+						</ul>
+					</nav>
+					<h4>
+						<i class="icon-cogs icon-white"></i> Services
+					</h4>
+					<nav>
+						<ul class="quick-links">
+							<li><a href="service.html">Service1</a></li>
+							<li><a href="service.html">Service2</a></li>
+							<li><a href="service.html">Service3</a></li>
+							<li><a href="all_services.html">All services</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="span2">
+					<h4>
+						<i class="icon-beaker icon-white"></i> About
+					</h4>
+					<nav>
+						<ul class="quick-links">
+							<li><a href="our_works.html">Our works</a></li>
+							<li><a href="patnerships.html">Patnerships</a></li>
+							<li><a href="leadership.html">Leadership</a></li>
+							<li><a href="news.html">News</a></li>
+							<li><a href="events.html">Events</a></li>
+							<li><a href="blog.html">Blog</a></li>
+							<ul>
+					</nav>
+				</div>
+				<div class="span2">
+					<h4>
+						<i class="icon-thumbs-up icon-white"></i> Support
+					</h4>
+					<nav>
+						<ul class="quick-links">
+							<li><a href="faq.html">FAQ</a></li>
+							<li><a href="contact_us.html">Contact us</a></li>
+						</ul>
+					</nav>
+					<h4>
+						<i class="icon-legal icon-white"></i> Legal
+					</h4>
+					<nav>
+						<ul class="quick-links">
+							<li><a href="#">License</a></li>
+							<li><a href="#">Terms of Use</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="#">Security</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="span3">
+					<h4>Get in touch</h4>
+					<div class="social-icons-row">
+						<a href="#"><i class="icon-twitter"></i></a> <a href="#"><i
+							class="icon-facebook"></i></a> <a href="#"><i
+							class="icon-linkedin"></i></a>
+					</div>
+					<div class="social-icons-row">
+						<a href="#"><i class="icon-google-plus"></i></a> <a href="#"><i
+							class="icon-github"></i></a> <a
+							href="mailto:soundar.rathinasamy@gmail.com"><i
+							class="icon-envelope"></i></a>
+					</div>
+					<div class="social-icons-row">
+						<i class="icon-phone icon-large phone-number"></i> +919750227877
+					</div>
+				</div>
+				<div class="span3">
+					<h4>Get updated by email</h4>
+					<form>
+						<input type="text" name="email" placeholder="Email address">
+						<input type="submit" class="btn btn-primary" value="Subscribe">
+					</form>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End: FOOTER -->
+
+
+	<script type="text/javascript"> window.user = {{ user|safe }}</script>
+
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.min.js"></script>
+	<!--  <script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script> -->
+    <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+   <!--  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-animate.js"></script>
+  
+	 <script type="text/javascript" src="js/index.js"></script> -->
+	<script type="text/javascript" src="indexRoute.js"></script>
+	<script type="text/javascript" src="js/services.js"></script>
+	<script type="text/javascript" src="js/controllers.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/boot-business.js"></script>
+	<!--<script type="text/javascript" src="services.js"></script> -->
+</body>
+</html>
