@@ -20,20 +20,20 @@ import fr.universite.bordeaux.repositories.UserRepository;
 public class UserResource {
 	@EJB
 	UserRepository userRepository;
-	
+
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<User> getAllUsers(){
 		return userRepository.getAllTheUsers();
 	}
-	
+
 	@GET
 	@Path("/{email}")
 	@Produces({MediaType.APPLICATION_JSON})
 	public User getUserByMail(@PathParam("email")String email){
 		return userRepository.findUserByEmail(email);
 	}
-	
+
 	@POST
 	@Path("/addUser")
 	@Consumes("application/json")
@@ -41,8 +41,23 @@ public class UserResource {
 		user.setDateInscription(new Date());
 		userRepository.addUser(user);
 	}
-	
-	
+
+
+	@POST
+	@Path("/login")
+	@Consumes("application/json")
+	@Produces({MediaType.APPLICATION_JSON})
+	public User  loginUser(User user){
+		if(!(userRepository.findUserByEmail(user.getEmail()).getPassword()).equals(user.getPassword())){
+			return null;
+		} else {
+			return userRepository.findUserByEmail(user.getEmail());
+		}
+
+	}
+
+
+
 	@DELETE
 	@Path("/{email}")
 	public void deleteUser(@PathParam("email")String email){

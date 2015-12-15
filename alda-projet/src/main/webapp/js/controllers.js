@@ -8,69 +8,38 @@ app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annon
 	})
 }])
 
-app.controller('signinCtrl',['$scope','$state','userFactory',function($scope,$state,userFactory) {
-
-	$scope.signin=function(){
-
-		$scope.user = {
-				email:$scope.email	,
-				password : $scope.password
-		}
-
-		alert(JSON.stringify($scope.email + " "+$scope.password))
-		//userFactory.save($scope.user)
-		if($scope.email=='admin' && $scope.password=="admin"){
-			$state.go('^.dashboard');
-			//$location.path('dashborad');
-		} else {
-			alert('wrong credentials')
-		}
-	}
-}])
 
 
 
-app.controller('signupCtrl',['$scope','userFactory',function($scope, userFactory) {
-
-	$scope.signup=function(){
-
-		if(($scope.signupPassword) != ($scope.passwordConfirm)){
-			alert("mot de passe différent "+$scope.signupPassword+"  "+$scope.passwordConfirm)
-		} else if($scope.signupPassword.length < 8){
-			alert("le mot de passe doit avoir au moins 8 caracteres")
-		} else{
-			$scope.signupUser = {
-					email:$scope.signupEmail	,
-					password : $scope.signupPassword
-			}
-
-			alert(JSON.stringify($scope.signupEmail + " "+$scope.signupPassword))
-			userFactory.save($scope.signupUser)
-		}
-
-	}
-}])
-
-
-app.controller('AuthController', ['$scope', '$location', '$http', 'Auth',function($scope, $location, $http, Auth) {
-	$scope.userData = {};
-	$scope.loginError = '';
+//controller gardant lassesion
+app.controller("signinCtrl",['$scope','$http','$location','AppSession', function($scope,$http,$location,AppSession) {
 
 	$scope.submitLogin = function() {
-		alert('http://localhost:8080/ExerciseJPAWithMysql/alda/users/'+$scope.email)
-		$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/users/'+$scope.email)
+		var params =JSON.stringify( { email: $scope.email,password :$scope.password})
+		$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/login',params)
 		.success(function(user) {
-			alert(JSON.stringify(user))
-			Auth.setUser(user);
-			$location.url('/');
+			if(user==""){
+				alert("mot de passe éronné")
+				$location.url('/connexion');
+			}else {
+				AppSession.setData(user);
+				$location.url('/');
+			}
 		})
-		.error(function(data) {
-			$scope.loginError = data.loginError;
+		.error(function(status) {
+			console.log(status);
 		});
 	};
 }]);
 
 
-app.controller('HeaderController', ['$scope', 'Auth',function($scope, Auth) {
-	$scope.user = Auth;
+app.controller('HeaderController', ['$scope', 'AppSession',function($scope, AppSession) {
+	$scope.user = AppSession ;
+
+	$scope.logout = function() {
+		AppSession.setData(null);
+		$location.url('/');
+	}
 }]);
+
+
