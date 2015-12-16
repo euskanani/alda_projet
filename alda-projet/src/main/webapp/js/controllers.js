@@ -42,6 +42,18 @@ app.controller('HeaderController', ['$scope', 'AppSession',function($scope, AppS
 	}
 }]);
 
+app.controller('mesinfosCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
+	$scope.user = AppSession ;
+	$scope.edit =false;
+	$scope.editables =$scope.user.getData();	
+
+	$scope.add=function(data , edit){
+		
+		alert(edit+"  "+data.firstName)
+		
+	}
+}]);
+
 
 
 //controller pour l'inscription

@@ -49,6 +49,9 @@
 								</div>
 							</form>
 						</li>
+						
+						<li><a ui-sref="annonce"
+							data-ng-show="user.isConnected(user.getData())">Mes annonces</a></li>
 
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Produits et services<b class="caret"></b></a>
@@ -67,7 +70,7 @@
 							</ul></li>
 
 						<li><a ui-sref="annonce"
-							data-ng-show="user.isConnected(user.getData())">Ajouter une
+							ng-show="user.isConnected(user.getData())">Ajouter une
 								annonce</a></li>
 
 						<li class="dropdown"
@@ -77,9 +80,9 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="our_works.html">Mes annonces</a></li>
+								<li><a ui-sref="mesinfos">Mes informations</a></li>
 								<li><a href="patnerships.html">Historique</a></li>
-								<li><a href="news.html">offres gardés</a></li>
-								<li><a href="events.html">Evenements</a></li>
+								<li><a href="news.html">Mes annonces préférés</a></li>
 								<li><a href="#" ng-click="logout()">Deconnexion</a></li>
 							</ul></li>
 
@@ -206,7 +209,6 @@
 	<!-- End: FOOTER -->
 
 
-	<!-- <script type="text/javascript"> window.user = {{ user|safe }}</script>  -->
 
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>

@@ -44,6 +44,12 @@ app.config(function($stateProvider, $urlRouterProvider){
 		templateUrl: "partials/dashboard.html",
 		controller: 'dashboardCtrl',
 	})
+
+	.state('mesinfos', {
+		url: "/mesinfos",
+		templateUrl: "partials/mesinfos.html",
+		controller: 'mesinfosCtrl',
+	})
 })
 
 
