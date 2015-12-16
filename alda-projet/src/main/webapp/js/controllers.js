@@ -43,3 +43,29 @@ app.controller('HeaderController', ['$scope', 'AppSession',function($scope, AppS
 }]);
 
 
+
+//controller pour l'inscription
+app.controller("signupCtrl",['$scope','$http','$location','AppSession', function($scope,$http,$location,AppSession) {
+
+	$scope.signup=function(){
+
+		if(($scope.signupPassword) != ($scope.passwordConfirm)){
+			alert("mot de passe différent ")
+		} else if($scope.signupPassword.length < 8){
+			alert("le mot de passe doit avoir au moins 8 caracteres")
+		} else{
+			var params ={ email: $scope.signupEmail,password :$scope.signupPassword }
+			alert($scope.signupEmail + "  "+ $scope.signupPassword)
+			$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser',params)
+			.success(function(user) {
+					AppSession.setData(user);
+					$location.url('/');
+			})
+			.error(function(status) {
+				console.log(status);
+			});
+		}
+	}
+}]);
+
+

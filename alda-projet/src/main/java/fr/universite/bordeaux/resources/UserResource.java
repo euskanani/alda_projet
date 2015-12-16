@@ -37,9 +37,11 @@ public class UserResource {
 	@POST
 	@Path("/addUser")
 	@Consumes("application/json")
-	public void  addUser(User user){
+	@Produces({MediaType.APPLICATION_JSON})
+	public User  addUser(User user){
 		user.setDateInscription(new Date());
 		userRepository.addUser(user);
+		return userRepository.findUserByEmail(user.getEmail());
 	}
 
 
