@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the announcement database table.
+ * The persistent class for the Announcement database table.
  * 
  */
 @Entity
@@ -23,7 +23,23 @@ public class Announcement implements Serializable {
 
 	private String description;
 
+	private String emplacement;
+
+	@Lob
+	@Column(name="img_1")
+	private byte[] img1;
+
+	@Lob
+	@Column(name="img_2")
+	private byte[] img2;
+
+	@Column(name="mail_annonceur")
+	private String mailAnnonceur;
+
 	private String name;
+
+	@Column(name="prix_mobilier")
+	private int prixMobilier;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -56,12 +72,52 @@ public class Announcement implements Serializable {
 		this.description = description;
 	}
 
+	public String getEmplacement() {
+		return this.emplacement;
+	}
+
+	public void setEmplacement(String emplacement) {
+		this.emplacement = emplacement;
+	}
+
+	public byte[] getImg1() {
+		return this.img1;
+	}
+
+	public void setImg1(byte[] img1) {
+		this.img1 = img1;
+	}
+
+	public byte[] getImg2() {
+		return this.img2;
+	}
+
+	public void setImg2(byte[] img2) {
+		this.img2 = img2;
+	}
+
+	public String getMailAnnonceur() {
+		return this.mailAnnonceur;
+	}
+
+	public void setMailAnnonceur(String mailAnnonceur) {
+		this.mailAnnonceur = mailAnnonceur;
+	}
+
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getPrixMobilier() {
+		return this.prixMobilier;
+	}
+
+	public void setPrixMobilier(int prixMobilier) {
+		this.prixMobilier = prixMobilier;
 	}
 
 	public User getUser() {

@@ -47,11 +47,38 @@ app.controller('mesinfosCtrl', ['$scope', 'AppSession',function($scope, AppSessi
 	$scope.edit =false;
 	$scope.editables =$scope.user.getData();	
 
-	$scope.add=function(data , edit){
-		
-		alert(edit+"  "+data.firstName)
-		
-	}
+}]);
+
+app.controller('annonceCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
+	$scope.user = AppSession ;
+	
+	alert(JSON.stringify($scope.nom + " " + $scope.description + " "
+			+ $scope.prix + " " + $scope.image1 + " " + $scope.image2
+			+ " " + AppSession.getData().email))
+
+	$scope.save = function() {
+		$http({
+			method : 'POST',
+			url : "/Api/PostStuff",
+			headers : {
+				'Content-Type' : false
+			},
+			data : {
+				nom : $scope.nom,
+				description : $scope.description,
+				emplacement : $scope.emplacement,
+				prix : $scope.prix,
+				email : AppSession.getData().email,
+				img_1 : $scope.image1,
+				img_2 : $scope.file[1]
+			}
+		}).success(function(data, status, headers, config) {
+			alert("success!");
+		}).error(function(data, status, headers, config) {
+			alert("failed!");
+		});
+	};
+
 }]);
 
 

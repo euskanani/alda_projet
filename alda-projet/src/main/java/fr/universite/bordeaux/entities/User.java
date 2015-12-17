@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * The persistent class for the user database table.
+ * The persistent class for the User database table.
  * 
  */
 @Entity
@@ -19,8 +19,13 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 
+	private String adresse;
+
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
+
+	@Column(name="code_postale")
+	private int codePostale;
 
 	@Temporal(TemporalType.DATE)
 	private Date dateInscription;
@@ -32,6 +37,10 @@ public class User implements Serializable {
 	private String lastName;
 
 	private String password;
+
+	private int telephone;
+
+	private String ville;
 
 	//bi-directional many-to-one association to Announcement
 	@OneToMany(mappedBy="user")
@@ -48,12 +57,28 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
+	public String getAdresse() {
+		return this.adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
 	public Date getBirthday() {
 		return this.birthday;
 	}
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	public int getCodePostale() {
+		return this.codePostale;
+	}
+
+	public void setCodePostale(int codePostale) {
+		this.codePostale = codePostale;
 	}
 
 	public Date getDateInscription() {
@@ -94,6 +119,22 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getTelephone() {
+		return this.telephone;
+	}
+
+	public void setTelephone(int telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getVille() {
+		return this.ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
 	public List<Announcement> getAnnouncements() {

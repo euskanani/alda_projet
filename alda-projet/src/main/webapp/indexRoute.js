@@ -31,6 +31,12 @@ app.config(function($stateProvider, $urlRouterProvider){
 		controller: 'productCtrl',
 	})
 
+	.state('annonce', {
+		url: "/annonce",
+		templateUrl: "partials/ajoutannonce.html",
+		controller: 'annonceCtrl',
+	})
+
 
 
 	.state('connexion', {
