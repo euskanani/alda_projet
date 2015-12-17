@@ -49,37 +49,72 @@ app.controller('mesinfosCtrl', ['$scope', 'AppSession',function($scope, AppSessi
 
 }]);
 
+
+/*
+app.directive('fileUpload', function () {
+	return {
+		scope: true,        //create a new scope
+		link: function (scope, el, attrs) {
+			el.bind('change', function (event) {
+				var files = event.target.files;
+				//iterate files since 'multiple' may be specified on the element
+				for (var i = 0;i<files.length;i++) {
+					//emit event upward
+					scope.$emit("fileSelected", { file: files[i] });
+				}                                       
+			});
+		}
+	};
+});*/
+
+
+/*
+
 app.controller('annonceCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
 	$scope.user = AppSession ;
-	
-	alert(JSON.stringify($scope.nom + " " + $scope.description + " "
-			+ $scope.prix + " " + $scope.image1 + " " + $scope.image2
-			+ " " + AppSession.getData().email))
 
-	$scope.save = function() {
-		$http({
-			method : 'POST',
-			url : "/Api/PostStuff",
-			headers : {
-				'Content-Type' : false
-			},
-			data : {
-				nom : $scope.nom,
-				description : $scope.description,
-				emplacement : $scope.emplacement,
-				prix : $scope.prix,
-				email : AppSession.getData().email,
-				img_1 : $scope.image1,
-				img_2 : $scope.file[1]
-			}
-		}).success(function(data, status, headers, config) {
-			alert("success!");
-		}).error(function(data, status, headers, config) {
-			alert("failed!");
+	$scope.model = {
+			nom : $scope.nom,
+			description : $scope.description,
+			emplacement : $scope.emplacement,
+			prix : $scope.prix,
+			email : AppSession.getData().email
+	}
+
+	//an array of files selected
+	$scope.files = [];
+
+	//listen for the file selected event
+	$scope.$on("fileSelected", function(event, args) {
+		$scope.$apply(function() {
+			//add the file object to the scope's files collection
+			$scope.files.push(args.file);
 		});
-	};
+	});
 
-}]);
+
+	$http({
+		method: 'POST',
+		url: "/Api/PostStuff",
+		headers: { 'Content-Type': false },
+		transformRequest: function (data) {
+			var formData = new FormData();
+			formData.append("model", angular.toJson(data.model));
+			for (var i = 0; i < data.files; i++) {
+				//add each file to the form data and iteratively name them
+				formData.append("file" + i, data.files[i]);
+			}
+			return formData;
+		},
+		data: { model: $scope.model, files: $scope.files }
+	}).
+	success(function (data, status, headers, config) {
+		alert("success!");
+	}).
+	error(function (data, status, headers, config) {
+		alert("failed!");
+	});
+}]); */
 
 
 
@@ -97,8 +132,8 @@ app.controller("signupCtrl",['$scope','$http','$location','AppSession', function
 			alert($scope.signupEmail + "  "+ $scope.signupPassword)
 			$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser',params)
 			.success(function(user) {
-					AppSession.setData(user);
-					$location.url('/');
+				AppSession.setData(user);
+				$location.url('/');
 			})
 			.error(function(status) {
 				console.log(status);
