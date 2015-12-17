@@ -1,0 +1,61 @@
+
+<!-- Start: Main content -->
+<div class="content">
+	<div class="container">
+		<!-- Start: Product description -->
+		<airticle class="article">
+		<div class="row bottom-space">
+			<div class="span12">
+				<div class="page-header">
+					<h1>Ajout d'une annonce</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span10 offset1">
+				<form ng-controller="annonceCtrl">
+
+					<fieldset class="form-group">
+						<label for="exampleTextarea">Nom</label> <input type="text"
+							class="form-control" id="exampleInputEmail1" ng-model="nom">
+					</fieldset>
+
+
+					<fieldset class="form-group">
+						<label for="exampleTextarea">Description</label> <input
+							type="textArea" class="form-control" id="exampleInputEmail1"
+							ng-model="description">
+					</fieldset>
+
+
+					<fieldset class="form-group">
+						<label for="exampleTextarea">Emplacement</label> <input
+							type="text" class="form-control" id="exampleInputEmail1"
+							ng-model="emplacement">
+					</fieldset>
+
+					<fieldset class="form-group">
+						<label for="exampleTextarea">Prix</label> <input type="number"
+							class="form-control" id="exampleInputEmail1" ng-model="prix">
+					</fieldset>
+
+					<fieldset class="form-group">
+						<label for="exampleInputFile">selection photo</label> <input
+							type="file" id="exampleInputFile" file-upload multiple />
+						<ul>
+							<li ng-repeat="file in files">{{file.name}}</li>
+						</ul>
+					</fieldset>
+
+					<input type="button" class="btn btn-primary" value="valider"
+						ng-click="save()" />
+				</form>
+			</div>
+		</div>
+
+		</airticle>
+		<!-- End: Product description -->
+	</div>
+</div>
+</div>
+<!-- End: Main content -->

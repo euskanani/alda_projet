@@ -1,0 +1,59 @@
+
+
+<!-- Start: Main content -->
+<div class="content">
+	<div class="container">
+		<!-- Start: Product description -->
+		<airticle class="article">
+		<div class="row bottom-space">
+			<div class="span12">
+				<div class="page-header">
+					<h1>Mes informations</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span10 offset1">
+
+				<div ng-show="!edit">
+					{{editables.firstName }} <br> {{editables.lastName }} <br>
+					{{editables.email}} <br> {{editables.dateInscription}} <br>
+					<button ng-click="edit=true">edit</button>
+				</div>
+
+
+
+				<form ng-show="edit">
+
+					<fieldset class="form-group">
+						<label for="exampleTextarea">Nom</label> <input type="email"
+							class="form-control" id="exampleInputEmail1"
+							ng-model="editables.firstName">
+					</fieldset>
+
+
+					<fieldset class="form-group">
+						<label for="exampleTextarea">Prenom</label> <input type="email"
+							class="form-control" id="exampleInputEmail1"
+							ng-model="editables.lastName">
+					</fieldset>
+
+					<fieldset class="form-group">
+						<label for="exampleInputEmail1">Email</label> <input type="email"
+							class="form-control" id="exampleInputEmail1"
+							ng-model="editables.email">
+					</fieldset>
+
+					<input type="button" class="btn btn-primary" value="valider"
+						ng-click="add(editables, edit)" />
+				</form>
+
+			</div>
+		</div>
+
+		</airticle>
+		<!-- End: Product description -->
+	</div>
+</div>
+</div>
+<!-- End: Main content -->
