@@ -2,6 +2,9 @@ package fr.universite.bordeaux.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 
@@ -42,6 +45,7 @@ public class Announcement implements Serializable {
 	private int prixMobilier;
 
 	//bi-directional many-to-one association to User
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 

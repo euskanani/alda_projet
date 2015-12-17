@@ -2,6 +2,9 @@ package fr.universite.bordeaux.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class User implements Serializable {
 	private String ville;
 
 	//bi-directional many-to-one association to Announcement
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Announcement> announcements;
 
