@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,9 +26,10 @@ public class AnnoucementResource {
 	UserRepository userRepository;
 
 	@GET
+	@Path("/{email}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public List<Announcement> getAnnouncementsByUser(){
-		User user = userRepository.findUserByEmail("test@gmail.com");
+	public List<Announcement> getAnnouncementsByUser(@PathParam("email")String email){
+		User user = userRepository.findUserByEmail(email);
 		return announcementRepository.findAnnouncementsByUser(user);
 	}
 

@@ -143,3 +143,24 @@ app.controller("signupCtrl",['$scope','$http','$location','AppSession', function
 }]);
 
 
+app.controller("mesAnnoncesCtrl",['$scope','$http','AppSession', function($scope,$http,AppSession) {
+  alert(AppSession.getData().firstName)
+  alert('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
+ 
+			
+	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
+	.success(function(data) {
+		alert(JSON.stringify(data))
+		$scope.annonces = data
+		
+})
+.error(function(status) {
+	console.log(status);
+});
+
+  
+	
+}]);
+
+
+
