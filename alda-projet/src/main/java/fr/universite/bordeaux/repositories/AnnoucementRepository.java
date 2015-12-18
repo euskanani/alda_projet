@@ -13,6 +13,7 @@ import fr.universite.bordeaux.entities.User;
 @Stateless
 public class AnnoucementRepository {
     private static final String JPQL_SELECT_PAR_EMAIL = "SELECT a FROM Announcement a WHERE a.user=:user";
+    private static final String JPQL_SELECT_ALL = "SELECT * FROM Announcement";
     private static final String PARAM_USER = "user";
     @PersistenceContext(unitName = "aldaPersistenceUnit")
     private EntityManager entityManager;
@@ -28,4 +29,12 @@ public class AnnoucementRepository {
         List<Announcement> announcements = (List<Announcement>)requete.getResultList();
         return announcements;
     }
+    
+    @SuppressWarnings("unchecked")
+	public List<Announcement> getAllTheAnnouncements(){
+    	 Query requete = entityManager.createQuery("select a from Announcement a");
+        
+         List<Announcement> announcements = (List<Announcement>)requete.getResultList();
+         return announcements;
+	}
 }

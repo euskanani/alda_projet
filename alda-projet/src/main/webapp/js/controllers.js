@@ -1,6 +1,7 @@
 app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annonceFactory) {
 
 	//$scope.names = annonceFactory.query()
+	
 	annonceFactory.get().$promise.then(function(data) {
 		$scope.names= data
 	}, function(status){
@@ -43,11 +44,35 @@ app.controller('HeaderController', ['$scope', 'AppSession',function($scope, AppS
 }]);
 
 app.controller('mesinfosCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
-	$scope.user = AppSession ;
-	$scope.edit =false;
-	$scope.editables =$scope.user.getData();	
+	
+	$scope.editables = {}
+	$scope.editables.firstName = AppSession.getData().firstName;
+	$scope.editables.lastName = AppSession.getData().lastName;
+	$scope.editables.email = AppSession.getData().email;
+	//$scope.editables =$scope.user.getData();
+	
+	$scope.update=function(){
+
+            //alert(JSON.stringify($scope.editables.firstName))		
+			var params ={ firstName: $scope.editables.firstName,lastName :$scope.editables.lastName, email :$scope.editables.email }
+			
+			$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser',params)
+			.success(function(user) {
+				AppSession.setData(user);
+				$location.url('/');
+				alert("modification reussie")
+			})
+			.error(function(status) {
+				console.log(status);
+				alert(status)
+			});
+		
+	}
+	
 
 }]);
+
+
 
 
 /*
@@ -144,19 +169,21 @@ app.controller("signupCtrl",['$scope','$http','$location','AppSession', function
 
 
 app.controller("mesAnnoncesCtrl",['$scope','$http','AppSession', function($scope,$http,AppSession) {
-  alert(AppSession.getData().firstName)
-  alert('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
+ /* alert(AppSession.getData().firstName)
+  alert('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)*/
  
 			
 	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
 	.success(function(data) {
-		alert(JSON.stringify(data))
+		//alert(JSON.stringify(data))
 		$scope.annonces = data
 		
 })
 .error(function(status) {
 	console.log(status);
 });
+	
+
 
   
 	

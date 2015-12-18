@@ -42,6 +42,13 @@ public class AnnoucementResource {
 		announcement.setUser(user);
 		announcementRepository.addAnnouncement(announcement);
 	}
+	
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	public List<Announcement> getAllAnnouncements(){
+		return announcementRepository.getAllTheAnnouncements();
+	}
+	
 
 /*
 	@POST

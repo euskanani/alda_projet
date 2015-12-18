@@ -43,6 +43,16 @@ public class UserResource {
 		userRepository.addUser(user);
 		return userRepository.findUserByEmail(user.getEmail());
 	}
+	
+	
+	@POST
+	@Path("/updateUser")
+	@Consumes("application/json")
+	@Produces({MediaType.APPLICATION_JSON})
+	public User  updateUser(User user){
+		userRepository.updateUser(user);
+		return userRepository.findUserByEmail(user.getEmail());
+	}
 
 
 	@POST
