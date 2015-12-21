@@ -23,9 +23,7 @@ public class ApplicationConfig extends Application{
         //features
         //this will register Jackson JSON providers
         resources.add(org.glassfish.jersey.jackson.JacksonFeature.class);
-        //we could also use this:
-        //resources.add(com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider.class);
-        
+
         //instead let's do it manually:
         resources.add(UserResource.class);
         resources.add(AnnoucementResource.class);
