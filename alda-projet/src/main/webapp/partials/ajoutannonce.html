@@ -13,42 +13,80 @@
 		</div>
 		<div class="row">
 			<div class="span10 offset1">
-				<form ng-controller="annonceCtrl">
-
+				<form ng-controller="annonceCtrl" name="myForm">
+                    <legend>Données</legend>
 					<fieldset class="form-group">
 						<label for="exampleTextarea">Nom</label> <input type="text"
-							class="form-control" id="exampleInputEmail1" ng-model="nom">
+							class="form-control" id="exampleInputEmail1"
+							ng-model="model.name">
 					</fieldset>
 
 
 					<fieldset class="form-group">
 						<label for="exampleTextarea">Description</label> <input
 							type="textArea" class="form-control" id="exampleInputEmail1"
-							ng-model="description">
+							ng-model="model.description">
 					</fieldset>
 
 
 					<fieldset class="form-group">
 						<label for="exampleTextarea">Emplacement</label> <input
 							type="text" class="form-control" id="exampleInputEmail1"
-							ng-model="emplacement">
+							ng-model="model.emplacement">
 					</fieldset>
 
 					<fieldset class="form-group">
 						<label for="exampleTextarea">Prix</label> <input type="number"
-							class="form-control" id="exampleInputEmail1" ng-model="prix">
+							class="form-control" id="exampleInputEmail1"
+							ng-model="model.prixMobilier">
 					</fieldset>
 
+					<!--  
 					<fieldset class="form-group">
-						<label for="exampleInputFile">selection photo</label> <input
-							type="file" id="exampleInputFile" file-upload multiple />
+						<label for="exampleInputFile">selectionnez 2 images</label> <input
+							type="file" id="exampleInputFile" file-upload multiple>
 						<ul>
 							<li ng-repeat="file in files">{{file.name}}</li>
 						</ul>
-					</fieldset>
-
+					</fieldset>  
 					<input type="button" class="btn btn-primary" value="valider"
 						ng-click="save()" />
+                     -->
+
+
+
+					<fieldset class="form-group">
+                        
+                        <legend>ajout d'une photo</legend>
+                        <label for="exampleInputFile">Photo</label> 
+					
+					
+						<input type="file" ngf-select ng-model="picFile" name="file"
+							accept="image/*" ngf-max-size="2MB" required> 
+						<br> 
+						<i ng-show="myForm.file.$error.maxSize">File too large
+							{{picFile.size / 1000000|number:1}}MB: max 2M</i> 
+							
+						<img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+						
+						<button ng-click="picFile = null" ng-show="picFile">Remove</button>
+						<br>
+						
+					</fieldset>
+					
+					<fieldset class="form-group">
+					   <legend>Envoi du formulaire</legend>
+					   <input type="button" class="btn btn-primary" ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)"  value="valider">
+						
+						
+						<span class="progress" ng-show="picFile.progress >= 0">
+							<div style="width:{{picFile.progress}}%"  ng-bind="picFile.progress + '%'"></div>
+						</span> 
+						
+						<span ng-show="picFile.result">Upload Successful</span> <span
+							class="err" ng-show="errorMsg">{{errorMsg}}</span>
+					</fieldset>
+					
 				</form>
 			</div>
 		</div>

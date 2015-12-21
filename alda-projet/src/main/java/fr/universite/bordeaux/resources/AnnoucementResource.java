@@ -1,5 +1,10 @@
 package fr.universite.bordeaux.resources;
 
+
+import java.io.IOException;
+import java.io.InputStream;
+//import java.io.IOException;
+//import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +18,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
+import org.apache.commons.io.IOUtils;
+import com.google.gson.Gson;
+
 import fr.universite.bordeaux.entities.Announcement;
 import fr.universite.bordeaux.entities.User;
 import fr.universite.bordeaux.repositories.AnnoucementRepository;
@@ -24,6 +33,7 @@ public class AnnoucementResource {
 	AnnoucementRepository announcementRepository;
 	@EJB
 	UserRepository userRepository;
+
 
 	@GET
 	@Path("/{email}")
@@ -43,57 +53,50 @@ public class AnnoucementResource {
 		announcementRepository.addAnnouncement(announcement);
 	}
 
-/*
+	/*
+	//resource without image
 	@POST
-	@Path("/addAnnonce")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response  addAnnouncement((List<Attachment> attachments, @Context HttpServletRequest request) {
-		for (Attachment attachment : attachments) {
-			DataHandler handler = attachment.getDataHandler();
-			try {
-				InputStream stream = handler.getInputStream();
-				MultivaluedMap<String, String> map = attachment.getHeaders();
-				System.out.println("fileName Here" + getFileName(map));
-				OutputStream out = new FileOutputStream(new File("C:/uploads/" + getFileName(map)));
+	@Path("/createAnnouncement")
+	@Consumes("application/json")
+	public void  createAnnouncement(Announcement announcement) {  
+	    System.out.println("model = " + announcement.getDescription());
+	    announcement.setCreatedDate(new Date());
+	    User user = userRepository.findUserByEmail(announcement.getMailAnnonceur());
+	    announcement.setUser(user);
+	    announcementRepository.addAnnouncement(announcement);
+	} */
 
-				int read = 0;
-				byte[] bytes = new byte[1024];
-				while ((read = stream.read(bytes)) != -1) {
-					out.write(bytes, 0, read);
-				}
-				stream.close();
-				out.flush();
-				out.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+
+	//resource avec image
+	@POST
+	@Path("/createAnnouncement/{announcement}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes("*/*")
+	public Response createAnnouncement(
+			InputStream stream ,
+			@PathParam("announcement")String  announcement){
+
+		Gson gson = new Gson(); 
+		final Announcement announce = gson.fromJson(announcement, Announcement.class);
+		
+		System.out.println(announce.getName());
+	    byte[] image;
+		try {
+			image = IOUtils.toByteArray(stream);
+			System.out.println(image);
+			announce.setImg1(image);
+			announce.setCreatedDate(new Date());
+			announce.setUser(userRepository.findUserByEmail(announce.getMailAnnonceur()));
+			announcementRepository.addAnnouncement(announce);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		return Response.status(200).entity("done").build();
 
-		return Response.ok("file uploaded").build();
 	}
-*/
-
-
 
 }
 
 
-
-/*
- * File file = new File("images/extjsfirstlook.jpg");
-        byte[] bFile = new byte[(int) file.length()];
-
-        try {
-         FileInputStream fileInputStream = new FileInputStream(file);
-         fileInputStream.read(bFile);
-         fileInputStream.close();
-        } catch (Exception e) {
-         e.printStackTrace();
-        }
-
-        Book book = new Book();
-        book.setName("Ext JS 4 First Look");
-        book.setImage(bFile);
-
-        bookDAO.saveBook(book);
- */

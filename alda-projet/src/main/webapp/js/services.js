@@ -48,6 +48,31 @@ app.factory("AppSession", function($window, $rootScope) {
 
 
 /*
+app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(data, uploadUrl){
+        var fd = new FormData();
+        for(var key in data){
+        	fd.append(key, data[key]);
+        	console.log(data[key])
+        }
+        $http({
+            method  : 'POST',
+        	url : uploadUrl,
+        	data : fd, 
+        	headers: { 'Content-Type': undefined },
+            transformRequest: angular.identity
+        })
+        .success(function(){
+        	console.log("success"+status)
+        })
+        .error(function(){
+        	console.log("failed"+status)
+        });
+    }
+}]);*/
+
+
+/*
 app.factory('userFactory', ['$resource', function($resource){
 	return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser/:email',{email : '@email'},
 			{
@@ -57,20 +82,3 @@ app.factory('userFactory', ['$resource', function($resource){
 
 */
 
-/*
-//permettre d'acceder au user n'importe où
-app.service('Auth', function() {
-	return {
-		getUser: function() {
-			return window.user;
-		},
-		setUser: function(newUser) {
-			window.user = newUser;
-		},
-		isConnected: function() {
-			return !!window.user;
-		}
-	};
-});
-
-*/
