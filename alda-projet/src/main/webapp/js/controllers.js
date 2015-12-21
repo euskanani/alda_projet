@@ -1,11 +1,10 @@
 app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annonceFactory) {
 
 	//$scope.names = annonceFactory.query()
-	
 	annonceFactory.get().$promise.then(function(data) {
 		$scope.names= data
 	}, function(status){
-		//alert('Repos error :'+status)
+		alert('Repos error :'+status)
 	})
 }])
 
@@ -34,7 +33,7 @@ app.controller("signinCtrl",['$scope','$http','$location','AppSession', function
 }]);
 
 
-app.controller('HeaderController', ['$scope', 'AppSession',function($scope, AppSession) {
+app.controller('HeaderController', ['$scope','$location', 'AppSession',function($scope, $location,AppSession) {
 	$scope.user = AppSession ;
 
 	$scope.logout = function() {
@@ -43,107 +42,60 @@ app.controller('HeaderController', ['$scope', 'AppSession',function($scope, AppS
 	}
 }]);
 
-app.controller('mesinfosCtrl', ['$scope','$http','$location' ,'AppSession',function($scope,$http ,$location, AppSession) {
-	
-	$scope.editables = {}
-	$scope.editable = []
-	$scope.editables.firstName = AppSession.getData().firstName;
-	$scope.editables.lastName = AppSession.getData().lastName;
-	$scope.editables.email = AppSession.getData().email;
-	//$scope.editables =$scope.user.getData();
-	
-	$scope.update=function(editables){
-
-            alert(JSON.stringify($scope.editables.firstName))		
-			//var params ={ firstName: $scope.editables.firstName,lastName :$scope.editables.lastName, email :$scope.editables.email }
-			
-			$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser'+AppSession.getData().id ,editables)
-			.success(function(data) {
-				if(data=="OK"){
-					$scope.editable[$scope.id] = editables;
-				}
-				
-				$location.url('/mesinfos');
-				alert("modification reussie")
-			}).error(function(status) {
-				console.log(status);
-				alert(status)
-				alert("erreur")
-			})
-		
-	}
-	
+app.controller('mesinfosCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
+	$scope.user = AppSession ;
+	$scope.edit =false;
+	$scope.editables =$scope.user.getData();	
 
 }]);
 
 
+app.controller('annonceCtrl', ['$scope','AppSession', 'Upload', '$timeout', function ($scope,AppSession , Upload, $timeout) {
 
+	$scope.model ={};
+	$scope.model.mailAnnonceur=AppSession.getData().email;
 
-/*
-app.directive('fileUpload', function () {
-	return {
-		scope: true,        //create a new scope
-		link: function (scope, el, attrs) {
-			el.bind('change', function (event) {
-				var files = event.target.files;
-				//iterate files since 'multiple' may be specified on the element
-				for (var i = 0;i<files.length;i++) {
-					//emit event upward
-					scope.$emit("fileSelected", { file: files[i] });
-				}                                       
-			});
-		}
-	};
-});*/
-
-
-/*
-
-app.controller('annonceCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
-	$scope.user = AppSession ;
-
-	$scope.model = {
-			nom : $scope.nom,
-			description : $scope.description,
-			emplacement : $scope.emplacement,
-			prix : $scope.prix,
-			email : AppSession.getData().email
+	for (var key in $scope.model) { 
+		console.log("adding "+key+" with calue:"+$scope.model[key]);
 	}
 
-	//an array of files selected
-	$scope.files = [];
+	$scope.uploadPic = function(file) {
+		$scope.announcement = {
+				name: $scope.model.name,
+				description :$scope.model.description,
+				emplacement :$scope.model.emplacement,
+				mailAnnonceur :$scope.model.mailAnnonceur,
+				prixMobilier :$scope.prixMobilier
+		};  
 
-	//listen for the file selected event
-	$scope.$on("fileSelected", function(event, args) {
-		$scope.$apply(function() {
-			//add the file object to the scope's files collection
-			$scope.files.push(args.file);
+		for (var key in $scope.model) { 
+			console.log("adding "+key+" with calue:"+$scope.model[key]);
+		}
+		console.log(JSON.stringify(file));
+
+		file.upload = Upload.http({
+			url: 'http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/createAnnouncement/'+JSON.stringify($scope.announcement),
+			headers: {
+				'Content-Type': file.type
+			},
+			method: 'POST',
+			data : file
 		});
-	});
 
-
-	$http({
-		method: 'POST',
-		url: "/Api/PostStuff",
-		headers: { 'Content-Type': false },
-		transformRequest: function (data) {
-			var formData = new FormData();
-			formData.append("model", angular.toJson(data.model));
-			for (var i = 0; i < data.files; i++) {
-				//add each file to the form data and iteratively name them
-				formData.append("file" + i, data.files[i]);
-			}
-			return formData;
-		},
-		data: { model: $scope.model, files: $scope.files }
-	}).
-	success(function (data, status, headers, config) {
-		alert("success!");
-	}).
-	error(function (data, status, headers, config) {
-		alert("failed!");
-	});
-}]); */
+		file.upload.then(function (response) {
+			$timeout(function () {
+				//file.result = response.data;
+				console.log("success"+response.status+"  DATA  : "+response.data);
+			});
+		}, function (response) {
+			if (response.status > 0)
+				console.log(response.status);
+		}, function (evt) {
+			// Math.min is to fix IE which reports 200% sometimes
+			file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+		});
+	}
+}]);
 
 
 
@@ -173,25 +125,18 @@ app.controller("signupCtrl",['$scope','$http','$location','AppSession', function
 
 
 app.controller("mesAnnoncesCtrl",['$scope','$http','AppSession', function($scope,$http,AppSession) {
- /* alert(AppSession.getData().firstName)
-  alert('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)*/
- 
-			
 	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
 	.success(function(data) {
-		//alert(JSON.stringify(data))
+		console.log(JSON.stringify(data))
 		$scope.annonces = data
-		
-})
-.error(function(status) {
-	console.log(status);
-});
-	
+
+	})
+	.error(function(status) {
+		console.log(status);
+	});
 
 
-  
-	
+
 }]);
-
 
 
