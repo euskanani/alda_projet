@@ -73,7 +73,8 @@ public class UserResource {
 
 
 	@DELETE
-	@Path("/{email}")
+	@Path("/deleteUser/{email}")
+	
 	public void deleteUser(@PathParam("email")String email){
 		userRepository.deleteUser(email);
 	}
