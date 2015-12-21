@@ -16,6 +16,16 @@ app.factory('annonceFactory', ['$resource', function($resource){
 }])
 
 
+//factory pour modifier un user
+app.factory('updateUserFactory', function ($resource) {
+    return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser/:email', {email : '@email'}, {
+        
+        update: { method: 'PUT', params: {email: '@email'} },
+        
+    })
+});
+
+
 //factory qui gere la gestion de la session
 app.factory("AppSession", function($window, $rootScope) {
 
@@ -30,6 +40,12 @@ app.factory("AppSession", function($window, $rootScope) {
 			$window.localStorage && $window.localStorage.setItem('my-storage', JSON.stringify(val));
 			return this;
 		},
+		/*update : function() {
+			return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser/:email',{email : '@email'},
+					{
+				update :    {method:'PUT' , params: {id: '@id'}}  
+					});
+		},*/
 		getData: function() {
 			return JSON.parse($window.localStorage && $window.localStorage.getItem('my-storage'));
 		},

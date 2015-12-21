@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -49,6 +50,16 @@ public class AnnoucementResource {
 		return announcementRepository.getAllTheAnnouncements();
 	}
 	
+	@PUT
+	@Path("/updateAnnouncement")
+	@Consumes("application/json")
+	@Produces({MediaType.APPLICATION_JSON})
+	//@Produces("text/plain")
+	public void  updateAnnouncement(Announcement announcement, String email){
+		announcementRepository.updateAnnouncement(announcement);
+		
+		 
+	}
 
 /*
 	@POST

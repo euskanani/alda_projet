@@ -37,4 +37,9 @@ public class AnnoucementRepository {
          List<Announcement> announcements = (List<Announcement>)requete.getResultList();
          return announcements;
 	}
+    
+public void updateAnnouncement(Announcement announcement){
+		
+		entityManager.merge(announcement);
+	}
 }

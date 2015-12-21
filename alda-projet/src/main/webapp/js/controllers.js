@@ -5,7 +5,7 @@ app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annon
 	annonceFactory.get().$promise.then(function(data) {
 		$scope.names= data
 	}, function(status){
-		alert('Repos error :'+status)
+		//alert('Repos error :'+status)
 	})
 }])
 
@@ -43,29 +43,33 @@ app.controller('HeaderController', ['$scope', 'AppSession',function($scope, AppS
 	}
 }]);
 
-app.controller('mesinfosCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
+app.controller('mesinfosCtrl', ['$scope','$http','$location' ,'AppSession',function($scope,$http ,$location, AppSession) {
 	
 	$scope.editables = {}
+	$scope.editable = []
 	$scope.editables.firstName = AppSession.getData().firstName;
 	$scope.editables.lastName = AppSession.getData().lastName;
 	$scope.editables.email = AppSession.getData().email;
 	//$scope.editables =$scope.user.getData();
 	
-	$scope.update=function(){
+	$scope.update=function(editables){
 
-            //alert(JSON.stringify($scope.editables.firstName))		
-			var params ={ firstName: $scope.editables.firstName,lastName :$scope.editables.lastName, email :$scope.editables.email }
+            alert(JSON.stringify($scope.editables.firstName))		
+			//var params ={ firstName: $scope.editables.firstName,lastName :$scope.editables.lastName, email :$scope.editables.email }
 			
-			$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser',params)
-			.success(function(user) {
-				AppSession.setData(user);
-				$location.url('/');
+			$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser'+AppSession.getData().id ,editables)
+			.success(function(data) {
+				if(data=="OK"){
+					$scope.editable[$scope.id] = editables;
+				}
+				
+				$location.url('/mesinfos');
 				alert("modification reussie")
-			})
-			.error(function(status) {
+			}).error(function(status) {
 				console.log(status);
 				alert(status)
-			});
+				alert("erreur")
+			})
 		
 	}
 	
