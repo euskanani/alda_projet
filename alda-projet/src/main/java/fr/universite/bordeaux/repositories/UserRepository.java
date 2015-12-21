@@ -32,6 +32,12 @@ public class UserRepository {
                 .getResultList();
 	}
 	
+	
+	public void updateUser(User user){
+		
+		entityManager.merge(user);
+	}
+	
 	public void deleteUser(String email){
 		Query requete = entityManager.createNativeQuery("select * from User where email='"+email+"'", User.class);
 		User user = (User) requete.getSingleResult();
