@@ -11,7 +11,8 @@ app.factory('userFact', ['$resource', function($resource){
 app.factory('annonceFactory', ['$resource', function($resource){
 	return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/:email',{email : '@email'},
 			{
-		'get':    {method:'GET',isArray:true}  //configuer get pour pouvoir recevoir jSON
+		'get':    {method:'GET',isArray:true} //configuer get pour pouvoir recevoir jSON
+	// 'delete':    {method: 'DELETE', params: {id: '@id'} }
 			});
 }])
 
