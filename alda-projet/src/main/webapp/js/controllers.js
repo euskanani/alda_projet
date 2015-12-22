@@ -42,15 +42,35 @@ app.controller('HeaderController', ['$scope','$location', 'AppSession',function(
 	}
 }]);
 
-app.controller('mesinfosCtrl', ['$scope', 'AppSession',function($scope, AppSession) {
+app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',function($scope,$http ,$location, AppSession) {
 	$scope.user = AppSession ;
 	$scope.edit =false;
 	$scope.editables =$scope.user.getData();	
 
+	$scope.update =function(){
+		var params = {
+				id : AppSession.getData().id,
+				firstName : $scope.editables.firstName,
+				lastName : $scope.editables.lastName,
+				email    : $scope.editables.email
+		}
+
+		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser',params)
+		.success(function(user) {
+			console.log(JSON.stringify(user));
+			AppSession.setData(user);
+			$location.url('/');
+			alert('Bravo!Vous venez de modifier vos informations')
+		})
+		.error(function(status) {
+			console.log(status);
+		});
+	}
+
 }]);
 
 
-app.controller('annonceCtrl', ['$scope','AppSession', 'Upload', '$timeout', function ($scope,AppSession , Upload, $timeout) {
+app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$timeout', function ($scope,AppSession,$location, Upload, $timeout) {
 
 	$scope.model ={};
 	$scope.model.mailAnnonceur=AppSession.getData().email;
@@ -86,6 +106,8 @@ app.controller('annonceCtrl', ['$scope','AppSession', 'Upload', '$timeout', func
 			$timeout(function () {
 				//file.result = response.data;
 				console.log("success"+response.status+"  DATA  : "+response.data);
+				$scope.show = $scope.show();
+				$location.url('/mesannonces');
 			});
 		}, function (response) {
 			if (response.status > 0)
@@ -95,7 +117,15 @@ app.controller('annonceCtrl', ['$scope','AppSession', 'Upload', '$timeout', func
 			file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 		});
 	}
+
+	//small func for auto closing alert
+	$scope.show=function(){
+		$scope.isVisible = true;
+	}
+
+
 }]);
+
 
 
 
@@ -113,8 +143,13 @@ app.controller("signupCtrl",['$scope','$http','$location','AppSession', function
 			alert($scope.signupEmail + "  "+ $scope.signupPassword)
 			$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser',params)
 			.success(function(user) {
-				AppSession.setData(user);
-				$location.url('/');
+				if(user==""){
+					alert("email déjà utilisé");
+					$location.url('/connexion');
+				}else {
+					AppSession.setData(user);
+					$location.url('/');	
+				}
 			})
 			.error(function(status) {
 				console.log(status);

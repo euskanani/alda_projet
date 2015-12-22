@@ -26,6 +26,12 @@ public class UserRepository {
 		return user;
 	}
 	
+	public User findUserById(String id) {
+		Query requete = entityManager.createNativeQuery("select * from User where id='"+id+"'", User.class);
+		User user = (User) requete.getSingleResult();
+		return user;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<User> getAllTheUsers(){
 		return entityManager.createNativeQuery("select * from User", User.class)
@@ -34,7 +40,7 @@ public class UserRepository {
 	
 	
 	public void updateUser(User user){
-		
+
 		entityManager.merge(user);
 	}
 	
@@ -42,5 +48,19 @@ public class UserRepository {
 		Query requete = entityManager.createNativeQuery("select * from User where email='"+email+"'", User.class);
 		User user = (User) requete.getSingleResult();
 		entityManager.remove(user);
+	}
+	
+	
+	
+	public boolean emailAlreadyExists(String email) {
+	   // Query checkEmailExists = entityManager.createQuery("SELECT COUNT(u.email) FROM "+ User.class.getName() + " u WHERE email = :emailparam");
+	    Query checkEmailExists = entityManager.createQuery("SELECT COUNT(u.email) FROM User u WHERE u.email=:emailparam");
+	    checkEmailExists.setParameter("emailparam", email);
+	    long matchCounter = 0;
+	    matchCounter = (Long) checkEmailExists.getSingleResult();
+	    if (matchCounter > 0) {
+	        return true;
+	    }
+	    return false;
 	}
 }
