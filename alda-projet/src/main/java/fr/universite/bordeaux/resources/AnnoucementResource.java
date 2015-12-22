@@ -44,6 +44,13 @@ public class AnnoucementResource {
 		User user = userRepository.findUserByEmail(email);
 		return announcementRepository.findAnnouncementsByUser(user);
 	}
+	
+	@GET
+	@Path("/getAnnouncementById/{id}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Announcement getAnnouncementById(@PathParam("id")String id){
+		return announcementRepository.findAnnouncementById(id);
+	}
 
 	@POST
 	@Path("/addAnnouncement")
@@ -66,7 +73,7 @@ public class AnnoucementResource {
 	@Consumes("application/json")
 	@Produces({MediaType.APPLICATION_JSON})
 	//@Produces("text/plain")
-	public void  updateAnnouncement(Announcement announcement, String email){
+	public void  updateAnnouncement(Announcement announcement){
 		announcementRepository.updateAnnouncement(announcement);
 		
 		 
