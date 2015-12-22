@@ -73,10 +73,10 @@ public class AnnoucementResource {
 	}
 	
 	@DELETE
-	@Path("/deleteAnnouncement/{email}")
+	@Path("{id}")
 	
-	public void deleteUser(@PathParam("email")String email){
-		announcementRepository.deleteAnnouncement(email);
+	public void deleteUser(@PathParam("id")int id){
+		announcementRepository.deleteAnnouncement(id);
 	}
 
 	/*

@@ -43,8 +43,8 @@ public void updateAnnouncement(Announcement announcement){
 		entityManager.merge(announcement);
 	}
 
-public void deleteAnnouncement(String email){
-	Query requete = entityManager.createNativeQuery("select * from Announcement where email='"+email+"'", Announcement.class);
+public void deleteAnnouncement(int id){
+	Query requete = entityManager.createNativeQuery("select * from Announcement where id='"+id+"'", Announcement.class);
 	//User user = (User) requete.getSingleResult();
 	Announcement announcement = (Announcement) requete.getSingleResult();
 	entityManager.remove(announcement);

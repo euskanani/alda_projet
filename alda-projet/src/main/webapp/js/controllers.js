@@ -159,7 +159,7 @@ app.controller("signupCtrl",['$scope','$http','$location','AppSession', function
 }]);
 
 
-app.controller("mesAnnoncesCtrl",['$scope','$http','AppSession', function($scope,$http,AppSession) {
+app.controller("mesAnnoncesCtrl",['$scope','$http','$location','AppSession','annonceFactory', function($scope,$http,$location,AppSession, annonceFactory) {
 	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
 	.success(function(data) {
 		console.log(JSON.stringify(data))
@@ -170,7 +170,27 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','AppSession', function($scope
 		console.log(status);
 	});
 
-
+	$scope.deleteAnn = function(AnnId) {
+		
+		/*$http.delete('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ AnnId)
+		.success(function(status) {
+			console.log(JSON.stringify(status))		
+			alert("suppression reussie");
+			$location.url('/');
+		})
+		.error(function(status) {
+			console.log(status);
+		});*/
+		
+		
+		annonceFactory.delete({ id: AnnId });
+		
+		$location.url('/');
+		alert("suppression reussie");
+		
+	};
+	
+	
 
 }]);
 
