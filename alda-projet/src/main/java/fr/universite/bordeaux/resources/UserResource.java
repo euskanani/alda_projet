@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import fr.universite.bordeaux.entities.User;
 import fr.universite.bordeaux.repositories.UserRepository;
@@ -33,16 +34,28 @@ public class UserResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	public User getUserByMail(@PathParam("email")String email){
 		return userRepository.findUserByEmail(email);
+	} 
+	
+	@GET
+	@Path("/getById/{id}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public User getUserById(@PathParam("id")String id){
+		return userRepository.findUserById(id);
 	}
+
 
 	@POST
 	@Path("/addUser")
 	@Consumes("application/json")
 	@Produces({MediaType.APPLICATION_JSON})
-	public User  addUser(User user){
-		user.setDateInscription(new Date());
-		userRepository.addUser(user);
-		return userRepository.findUserByEmail(user.getEmail());
+	public Response  addUser(User user){
+		user.setDateInscription(new Date());		
+		if(userRepository.emailAlreadyExists(user.getEmail())){
+	          return null ;
+		}else {
+			userRepository.addUser(user);
+			return Response.status(200).entity(userRepository.findUserByEmail(user.getEmail())).build(); 
+		}
 	}
 	
 	
