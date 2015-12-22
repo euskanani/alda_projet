@@ -66,7 +66,6 @@ app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',functi
 			console.log(status);
 		});
 	}
-
 }]);
 
 

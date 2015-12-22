@@ -1,6 +1,20 @@
 
 var app = angular.module('myApp',['ngResource','ui.router','ngFileUpload'])
 
+
+var url = "http://localhost:8080/ExerciseJPAWithMysql/alda/events";
+var source = new EventSource(url);
+
+source.onmessage = function (event) {
+	console.log(event.data);
+	alert(JSON.stringify(event.data))
+}
+source.addEventListener("name", function(event) {
+	console.log(event.name + " " + event.data);
+	alert(event.name + " " +event.data)
+})
+
+
 //using ui-router
 app.config(function($stateProvider, $urlRouterProvider){   
 	// For any unmatched url, send to /route1

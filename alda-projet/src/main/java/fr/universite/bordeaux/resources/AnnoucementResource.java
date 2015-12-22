@@ -22,6 +22,11 @@ import javax.ws.rs.core.Response;
 
 
 import org.apache.commons.io.IOUtils;
+import org.glassfish.jersey.media.sse.EventOutput;
+import org.glassfish.jersey.media.sse.OutboundEvent;
+import org.glassfish.jersey.media.sse.SseBroadcaster;
+import org.glassfish.jersey.media.sse.SseFeature;
+
 import com.google.gson.Gson;
 
 import fr.universite.bordeaux.entities.Announcement;
@@ -35,6 +40,18 @@ public class AnnoucementResource {
 	AnnoucementRepository announcementRepository;
 	@EJB
 	UserRepository userRepository;
+
+
+	private final SseBroadcaster BROADCASTER = new SseBroadcaster();
+
+	@GET
+	@Path("/events")
+	@Produces(SseFeature.SERVER_SENT_EVENTS)
+	public EventOutput announcementsEvents() {
+		final EventOutput eventOutput = new EventOutput();
+		BROADCASTER.add(eventOutput);
+		return eventOutput;
+	}
 
 
 	@GET
@@ -54,13 +71,13 @@ public class AnnoucementResource {
 		announcement.setUser(user);
 		announcementRepository.addAnnouncement(announcement);
 	}
-	
+
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<Announcement> getAllAnnouncements(){
 		return announcementRepository.getAllTheAnnouncements();
 	}
-	
+
 	@PUT
 	@Path("/updateAnnouncement")
 	@Consumes("application/json")
@@ -68,13 +85,21 @@ public class AnnoucementResource {
 	//@Produces("text/plain")
 	public void  updateAnnouncement(Announcement announcement, String email){
 		announcementRepository.updateAnnouncement(announcement);
-		
-		 
+
+		// Broadcasting an un-named event with the name of the newly added item in data
+		BROADCASTER.broadcast(new OutboundEvent.Builder().data(String.class,announcement).build());
+
+		// Broadcasting a named "add" event with the current size of the items collection in data
+		BROADCASTER.broadcast(new OutboundEvent.Builder().name("size").data(Integer.class,
+				announcement.getName()).build());
 	}
-	
+
+
+
+
 	@DELETE
 	@Path("{id}")
-	
+
 	public void deleteUser(@PathParam("id")int id){
 		announcementRepository.deleteAnnouncement(id);
 	}
@@ -104,9 +129,9 @@ public class AnnoucementResource {
 
 		Gson gson = new Gson(); 
 		final Announcement announce = gson.fromJson(announcement, Announcement.class);
-		
+
 		System.out.println(announce.getName());
-	    byte[] image;
+		byte[] image;
 		try {
 			image = IOUtils.toByteArray(stream);
 			System.out.println(image);
@@ -118,7 +143,7 @@ public class AnnoucementResource {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return Response.status(200).entity("done").build();
 
 	}
