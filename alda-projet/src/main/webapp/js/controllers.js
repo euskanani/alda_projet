@@ -137,22 +137,22 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','AppSession','ann
 
 	$scope.deleteAnn = function(AnnId) {
 		
-		/*$http.delete('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ AnnId)
+		if(confirm("Are you sure to delete this announce ")==true)
+		$http.delete('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ AnnId)
 		.success(function(status) {
 			console.log(JSON.stringify(status))		
-			alert("suppression reussie");
+			//alert("suppression reussie");
 			$location.url('/');
 		})
 		.error(function(status) {
 			console.log(status);
-		});*/
+		});
 		
-		
+		/*if(confirm("Are you sure to delete this announce ")==true){
 		annonceFactory.delete({ id: AnnId });
-		
 		$location.url('/');
-		alert("suppression reussie");
-		
+		}
+		alert("suppression reussie");*/
 	};
 	
 	
