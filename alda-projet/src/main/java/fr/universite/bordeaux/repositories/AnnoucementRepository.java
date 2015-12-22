@@ -30,6 +30,12 @@ public class AnnoucementRepository {
         return announcements;
     }
     
+    public Announcement findAnnouncementById(String id) {
+		Query requete = entityManager.createNativeQuery("select * from Announcement where id='"+id+"'", Announcement.class);
+		Announcement announcement = (Announcement) requete.getSingleResult();
+		return announcement;
+	}
+    
     @SuppressWarnings("unchecked")
 	public List<Announcement> getAllTheAnnouncements(){
     	 Query requete = entityManager.createQuery("select a from Announcement a");

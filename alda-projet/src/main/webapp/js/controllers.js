@@ -69,6 +69,51 @@ app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',functi
 }]);
 
 
+app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',function($scope,$http ,$location, $stateParams) {
+ 
+		   // alert("test route")
+			//alert(JSON.stringify($stateParams.id))
+			$scope.id = $stateParams.id
+			$scope.edit = false
+			$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
+			.success(function(data) {
+				//alert(JSON.stringify(data))
+				console.log(JSON.stringify(data))
+				$scope.editables = data
+
+			})
+			.error(function(status) {
+				console.log(status);
+			});
+
+		
+	
+	$scope.update =function(){
+		var params = {
+				//id : AppSession.getData().id,
+				//id : $scope.editables.id,
+				name : $scope.editables.name,
+				description : $scope.editables.description,
+				emplacement    : $scope.editables.emplacement,
+				prixMobilier   : $scope.editables.prixMobilier
+		}
+
+		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/updateAnnouncement',params)
+		.success(function(annonce) {
+			console.log(JSON.stringify(annonce));
+			console.log(JSON.stringify($scope.id));
+			//alert(JSON.stringify($scope.id))
+			//AppSession.setData(annonce);
+			$location.url('/mesannonces');
+			alert('Bravo!Vous venez de modifier votre annonce')
+		})
+		.error(function(status) {
+			console.log(status);
+		});
+	}
+
+}]);
+
 app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$timeout', function ($scope,AppSession,$location, Upload, $timeout) {
 
 	$scope.model ={};
@@ -171,23 +216,29 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','AppSession','ann
 
 	$scope.deleteAnn = function(AnnId) {
 		
-		/*$http.delete('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ AnnId)
+		if(confirm("Are you sure to delete this announce ")==true)
+		$http.delete('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ AnnId)
 		.success(function(status) {
 			console.log(JSON.stringify(status))		
-			alert("suppression reussie");
+			//alert("suppression reussie");
 			$location.url('/');
 		})
 		.error(function(status) {
 			console.log(status);
-		});*/
+		});
 		
-		
+		/*if(confirm("Are you sure to delete this announce ")==true){
 		annonceFactory.delete({ id: AnnId });
-		
 		$location.url('/');
-		alert("suppression reussie");
-		
+		}
+		alert("suppression reussie");*/
 	};
+	
+	$scope.consulter =function(id){
+      
+        $location.path('/monannonce/' + id);
+       // console.log(JSON.stringify(id));
+	}
 	
 	
 

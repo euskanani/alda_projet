@@ -75,6 +75,12 @@ app.config(function($stateProvider, $urlRouterProvider){
 		templateUrl: "partials/our_works.html",
 		controller: 'mesAnnoncesCtrl',
 	})
+	.state('monannonce', {
+		url: "/monannonce/:id",
+		templateUrl: "partials/monannonce.html",
+		controller: 'monAnnonceCtrl'
+	})
+	
 })
 
 
