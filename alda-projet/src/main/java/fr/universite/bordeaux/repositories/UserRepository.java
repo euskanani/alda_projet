@@ -22,8 +22,13 @@ public class UserRepository {
 
 	public User findUserByEmail(String email) {
 		Query requete = entityManager.createNativeQuery("select * from User where email='"+email+"'", User.class);
-		User user = (User) requete.getSingleResult();
-		return user;
+		
+		@SuppressWarnings("unchecked")
+		List<User> ListUser = (List<User>) requete.getResultList();
+		if (ListUser.isEmpty()) {
+			return null;
+		}
+		else return ListUser.get(0); 
 	}
 	
 	public User findUserById(String id) {

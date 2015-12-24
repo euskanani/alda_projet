@@ -3,6 +3,13 @@ app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annon
 	//$scope.names = annonceFactory.query()
 	annonceFactory.get().$promise.then(function(data) {
 		$scope.names= data
+		for(var key in data){
+			if( data[key].statusVendu =='DISPONIBLE'){
+				$scope.names[key].mystatusStyle={color:'green'}
+			}else if (data[key].statusVendu =='VENDU'){
+				$scope.names[key].mystatusStyle={color:'red'}
+			}
+		}
 	}, function(status){
 		alert('Repos error :'+status)
 	})
@@ -18,8 +25,8 @@ app.controller("signinCtrl",['$scope','$http','$location','AppSession', function
 		var params =JSON.stringify( { email: $scope.email,password :$scope.password})
 		$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/login',params)
 		.success(function(user) {
-			if(user==""){
-				alert("mot de passe éronné")
+			if((user=="")||(user==null)){
+				alert("email ou mot de passe éronné")
 				$location.url('/connexion');
 			}else {
 				AppSession.setData(user);
@@ -70,24 +77,24 @@ app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',functi
 
 
 app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',function($scope,$http ,$location, $stateParams) {
- 
-		   // alert("test route")
-			//alert(JSON.stringify($stateParams.id))
-			$scope.id = $stateParams.id
-			$scope.edit = false
-			$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
-			.success(function(data) {
-				//alert(JSON.stringify(data))
-				console.log(JSON.stringify(data))
-				$scope.editables = data
 
-			})
-			.error(function(status) {
-				console.log(status);
-			});
+	// alert("test route")
+	//alert(JSON.stringify($stateParams.id))
+	$scope.id = $stateParams.id
+	$scope.edit = false
+	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
+	.success(function(data) {
+		//alert(JSON.stringify(data))
+		console.log(JSON.stringify(data))
+		$scope.editables = data
 
-		
-	
+	})
+	.error(function(status) {
+		console.log(status);
+	});
+
+
+
 	$scope.update =function(){
 		var params = {
 				//id : AppSession.getData().id,
@@ -129,7 +136,7 @@ app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$ti
 				description :$scope.model.description,
 				emplacement :$scope.model.emplacement,
 				mailAnnonceur :$scope.model.mailAnnonceur,
-				prixMobilier :$scope.prixMobilier
+				prixMobilier :$scope.model.prixMobilier
 		};  
 
 		for (var key in $scope.model) { 
@@ -174,7 +181,7 @@ app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$ti
 
 
 //controller pour l'inscription
-app.controller("signupCtrl",['$scope','$http','$location','AppSession', function($scope,$http,$location,AppSession) {
+app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession', function($scope,$http,$location,$state,AppSession) {
 
 	$scope.signup=function(){
 
@@ -203,7 +210,8 @@ app.controller("signupCtrl",['$scope','$http','$location','AppSession', function
 }]);
 
 
-app.controller("mesAnnoncesCtrl",['$scope','$http','$location','AppSession','annonceFactory', function($scope,$http,$location,AppSession, annonceFactory) {
+app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','annonceFactory','AppSession', function($scope,$http,$location,$uibModal, annonceFactory,AppSession) {
+
 	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
 	.success(function(data) {
 		console.log(JSON.stringify(data))
@@ -214,33 +222,54 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','AppSession','ann
 		console.log(status);
 	});
 
-	$scope.deleteAnn = function(AnnId) {
-		
-		if(confirm("Are you sure to delete this announce ")==true)
-		$http.delete('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ AnnId)
-		.success(function(status) {
-			console.log(JSON.stringify(status))		
-			//alert("suppression reussie");
-			$location.url('/');
-		})
-		.error(function(status) {
-			console.log(status);
-		});
-		
-		/*if(confirm("Are you sure to delete this announce ")==true){
-		annonceFactory.delete({ id: AnnId });
-		$location.url('/');
-		}
-		alert("suppression reussie");*/
-	};
-	
+
+
 	$scope.consulter =function(id){
-      
-        $location.path('/monannonce/' + id);
-       // console.log(JSON.stringify(id));
+		$location.path('/monannonce/' + id);
+		// console.log(JSON.stringify(id));
 	}
-	
-	
+
+
+	//les modals
+	$scope.openDeleteModal=function(ident){	
+		var dialogOpts = {
+				backdrop: true,
+				keyboard: true,
+				templateUrl: 'deleteModal.html', // Url du template HTML
+				controller: ['$scope', '$uibModalInstance','scopeParent', 'id',
+				             function($scope, $uibModalInstance,scopeParent,id) { //Controller de la fenêtre. Il doit prend en paramètre tous les élèments du "resolve".
+					$scope.deleteAnn = function() {
+						$http({
+							method : 'DELETE',
+							url :'http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ id})
+							.success(function(status) {		
+								window.location.reload(true); 
+							})
+							.error(function(status) {
+								console.log("failed"+status);
+							});
+
+						//Fermeture de la fenêtre modale
+						$uibModalInstance.close();
+					};
+					$scope.cancel = function() {
+						// Appel à la fonction d'annulation.
+						$uibModalInstance.dismiss('cancel');
+					};
+				}
+				],
+
+				resolve :      {  
+					scopeParent: function() {
+						return $scope; //On passe à la fenêtre modal une référence vers le scope parent.
+					},
+					id: function(){
+						return ident; // On passe en paramètre l'id de l'élément à supprimer.
+					}
+				}
+		}
+		$uibModal.open(dialogOpts);
+	}
 
 }]);
 

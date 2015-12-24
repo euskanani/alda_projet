@@ -10,6 +10,8 @@ import javax.ws.rs.core.Application;
 
 import fr.universite.bordeaux.resources.AnnoucementResource;
 import fr.universite.bordeaux.resources.UserResource;
+import fr.universite.bordeaux.sseresources.SseResource;
+
 
 @ApplicationPath("alda")
 public class ApplicationConfig extends Application{
@@ -27,6 +29,7 @@ public class ApplicationConfig extends Application{
         //instead let's do it manually:
         resources.add(UserResource.class);
         resources.add(AnnoucementResource.class);
+        resources.add(SseResource.class);
         //==> we could also choose packages, see below getProperties()
         
         System.out.println("REST configuration ended successfully.");

@@ -1,80 +1,106 @@
-	<!-- Start: MAIN CONTENT -->
-	<div class="content">
-		<!-- Start: slider -->
-		<div class="slider">
-			<div class="container-fluid">
-				<div id="heroSlider" class="carousel slide">
-					<div class="carousel-inner">
-						<div class="active item">
-							<div class="hero-unit">
-								<div class="row-fluid">
-									<div class="span7 marketting-info">
-										<h1>A PROPOS DES VENTES IMMOBILIERES</h1>
-										<p>Vous disposez d'un meuble que vous n'utilisez plus, ou
-											un meuble encombrant!! Cette plate-forme vous permet de
-											vendre facilement et rapidemnet Vous pouvez aussi effectuer
-											des achats de mobilier.</p>
-										<h3>
-											<a ui-sref="product"class="btn">Plus</a>
-										</h3>
-									</div>
-									<div class="span5">
-										<img ng-src="data:image/JPEG;base64,{{annonce.img1}}" class="thumbnail">
-									</div>
+
+<!-- Start: MAIN CONTENT -->
+<div class="content">
+	<!-- Start: slider -->
+	<div class="slider">
+		<div class="container-fluid">
+			<div id="heroSlider" class="carousel slide">
+				<div class="carousel-inner">
+					<div class="active item">
+						<div class="hero-unit">
+							<div class="row-fluid">
+								<div class="span7 marketting-info">
+									<h1>A PROPOS DES VENTES IMMOBILIERES</h1>
+									<p>Vous disposez d'un meuble que vous n'utilisez plus, ou
+										un meuble encombrant!! Cette plate-forme vous permet de vendre
+										facilement et rapidemnet Vous pouvez aussi effectuer des
+										achats de mobilier.</p>
+									<h3>
+										<a ui-sref="product" class="btn">Plus</a>
+									</h3>
 								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="hero-unit">
-								<div class="row-fluid">
-									<div class="span7 marketting-info">
-										<h1>A PROPOS DES ANNONCES</h1>
-										<p>Vous trouverez ici les meubles à votre goût et selon
-											votre budget. Vous pouvez aussi ajouter des annonces pour
-											vendre.</p>
-										<h3>
-											<a ui-sref="service" class="btn">Plus</a>
-										</h3>
-									</div>
-									<div class="span5">
-										<img src="img/meuble2.jpg" class="thumbnail">
-									</div>
+								<div class="span5">
+									<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+										class="thumbnail">
 								</div>
 							</div>
 						</div>
 					</div>
-					<a class="left carousel-control" href="#heroSlider"
-						data-slide="prev">‹</a> <a class="right carousel-control"
-						href="#heroSlider" data-slide="next">›</a>
-				</div>
-			</div>
-		</div>
-		<!-- End: slider -->
-		<!-- Start: ANNONCES LIST -->
-		<div class="container">
-			<div class="page-header">
-				<h2>Les annonces</h2>
-			</div>
-			<div class="row-fluid">
-				<ul ng-controller = "customersCtrl" class="thumbnails">
-					<li class="span4"  ng-repeat = "annonce in names">
-						<div class="thumbnail">
-							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}" alt="product name">
-							<div class="caption">
-								<h3>{{ annonce.name }}</h3>
-								<p> {{ annonce.description }}</p>
-							</div>
-							<div class="widget-footer">
-								<p>
-									<a href="#" class="btn btn-primary">Consuler </a>
-								</p>
+					<div class="item">
+						<div class="hero-unit">
+							<div class="row-fluid">
+								<div class="span7 marketting-info">
+									<h1>A PROPOS DES ANNONCES</h1>
+									<p>Vous trouverez ici les meubles à votre goût et selon
+										votre budget. Vous pouvez aussi ajouter des annonces pour
+										vendre.</p>
+									<h3>
+										<a ui-sref="service" class="btn">Plus</a>
+									</h3>
+								</div>
+								<div class="span5">
+									<img src="img/meuble2.jpg" class="thumbnail">
+								</div>
 							</div>
 						</div>
-					</li>
-				</ul>
+					</div>
+				</div>
+				<a class="left carousel-control" href="#heroSlider"
+					data-slide="prev">‹</a> <a class="right carousel-control"
+					href="#heroSlider" data-slide="next">›</a>
 			</div>
-			
 		</div>
-		<!-- End: ANNONCES LIST -->
 	</div>
-	<!-- End: MAIN CONTENT -->
+	<!-- End: slider -->
+	<!-- Start: ANNONCES LIST -->
+
+	<div class="container">
+		<div class="page-header">
+			<h2>Les annonces</h2>
+		</div>
+
+		<div class="list-lbc">
+			<ul ng-controller="customersCtrl" class="thumbs">
+				<li  ng-repeat="annonce in names"><a href="#"
+					title="{{ annonce.name }}">
+						<div class="thumbnail">
+							<div class="lbc">
+
+								<div id="date">
+									<div>Aujourd'hui</div>
+									<div>17:01</div>
+								</div>
+
+
+								<div id="image">
+
+									<div class="image-and-nb">
+										<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+											alt="product name">
+										<div class="nb">
+											<div class="top radius">&nbsp;</div>
+											<div class="value radius">1</div>
+										</div>
+									</div>
+								</div>
+
+								<div id="detail">
+									<h2 class="title">{{ annonce.name }}</h2>
+									<!--  <div class="category">Locations</div> -->
+									<div class="placement">{{ annonce.description }}</div>
+									<div class="price">{{ annonce.prixMobilier }}
+										&nbsp;&euro;</div>
+									<div class="placement">
+										<span ng-style="annonce.mystatusStyle">{{annonce.statusVendu}}</span>
+									</div>
+
+								</div>
+							</div>
+						</div>
+				</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- End: ANNONCES LIST -->
+</div>
+<!-- End: MAIN CONTENT -->
