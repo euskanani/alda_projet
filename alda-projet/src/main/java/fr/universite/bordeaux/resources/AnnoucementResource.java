@@ -61,13 +61,6 @@ public class AnnoucementResource {
 		User user = userRepository.findUserByEmail(email);
 		return announcementRepository.findAnnouncementsByUser(user);
 	}
-	
-	@GET
-	@Path("/getAnnouncementById/{id}")
-	@Produces({MediaType.APPLICATION_JSON})
-	public Announcement getAnnouncementById(@PathParam("id")String id){
-		return announcementRepository.findAnnouncementById(id);
-	}
 
 	@POST
 	@Path("/addAnnouncement")
@@ -90,12 +83,11 @@ public class AnnoucementResource {
 	@Consumes("application/json")
 	@Produces({MediaType.APPLICATION_JSON})
 	//@Produces("text/plain")
-	public void  updateAnnouncement(Announcement announcement){
+	public void  updateAnnouncement(Announcement announcement, String email){
 		announcementRepository.updateAnnouncement(announcement);
 
 		// Broadcasting an un-named event with the name of the newly added item in data
 		BROADCASTER.broadcast(new OutboundEvent.Builder().data(String.class,announcement).build());
-
 		// Broadcasting a named "add" event with the current size of the items collection in data
 		BROADCASTER.broadcast(new OutboundEvent.Builder().name("size").data(Integer.class,
 				announcement.getName()).build());
@@ -137,13 +129,14 @@ public class AnnoucementResource {
 		Gson gson = new Gson(); 
 		final Announcement announce = gson.fromJson(announcement, Announcement.class);
 
-		System.out.println(announce.getName());
+		System.out.println(announce.getPrixMobilier());
 		byte[] image;
 		try {
 			image = IOUtils.toByteArray(stream);
 			System.out.println(image);
 			announce.setImg1(image);
 			announce.setCreatedDate(new Date());
+			announce.setStatusVendu("DISPONIBLE");  
 			announce.setUser(userRepository.findUserByEmail(announce.getMailAnnonceur()));
 			announcementRepository.addAnnouncement(announce);
 		} catch (IOException e) {
@@ -156,5 +149,13 @@ public class AnnoucementResource {
 	}
 
 }
+
+
+/*int i = 234;
+byte b = (byte) i;
+System.out.println(b); // -22
+int i2 = b & 0xFF;
+System.out.println(i2); // 234
+ * */
 
 

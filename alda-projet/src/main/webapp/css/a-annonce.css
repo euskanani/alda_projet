@@ -1,0 +1,155 @@
+.thumbnail{
+	width : 100%;
+	margin-top : 3%;
+	margin-bottom : 3%;
+}
+
+
+.thumbnail img{
+   height : 120px;
+   width :  180px;
+}
+
+
+.lbc .detail {
+  float: right;
+  margin-left :4% ;
+}
+
+.lbc #date {
+  float: left;
+}
+
+.lbc #image {
+  float: auto;
+  margin-left :4%;
+}
+.list-lbc ul {
+    list-style:none; 
+}
+
+.list-lbc li {
+    width: 95%;
+    text-align :center;
+}
+
+
+.list-lbc {
+	width: 100%;
+}
+
+.list-lbc a:hover {
+	text-decoration: none;
+}
+
+.list-lbc a:first-child .lbc {
+	padding-top: 5px;
+	border: 0;
+}
+
+.list-lbc a:hover .lbc {
+	background-color: #d3d7cf;
+	width : 100%;
+}
+
+
+.list-lbc .lbc .no-image {
+	float: left;
+	width: 60px;
+	padding: 20px 15px 0 0;
+	text-align: center;
+}
+
+.image-and-nb {
+	position: relative;
+	float: left;
+}
+
+.image-and-nb .nb {
+	width: 26px;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+}
+
+.image-and-nb .nb div {
+	background: #BBB;
+	text-align: center;
+}
+
+.image-and-nb .nb .top {
+	width: 13px;
+	font-size: 0;
+	height: 5px;
+	margin: 0 auto;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-ms-border-radius: 5px 5px 0 0;
+}
+
+.image-and-nb .nb .value {
+	padding: 0 0 1px 0;
+	border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-o-border-radius: 3px 3px 3px 3px;
+	-ms-border-radius: 3px 3px 3px 3px;
+	font-weight: bold;
+	color: #FFF;
+}
+
+
+.lbc .detail .title {
+	font-size: 14px;
+	margin: 0;
+}
+
+.lbc .detail .placement, .lbc .detail .category {
+	color: #000;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.lbc .detail .price {
+	height: 32px;
+	line-height: 32px;
+	font-size: 14px;
+	float: left;
+	color: #000;
+	padding-right: 10px;
+}
+
+.lbc .detail .urgent {
+	color: #F60;
+	font-weight: bold;
+	float: left;
+	height: 32px;
+	line-height: 32px;
+}
+
+.lbc .detail .booster_logo {
+	position: relative;
+	height: 35px;
+	margin-top: 5px;
+}
+
+.lbc .detail .booster {
+	background-position: -3px -4px;
+	clear: both;
+	margin-top: -3px;
+	display: block;
+	height: 30px;
+	width: 30px;
+}
+
+.list-gallery {
+	width: 225px;
+	float: right;
+	margin-right: -10px;
+}
+
+.list-lbc a {
+	cursor: pointer;
+}

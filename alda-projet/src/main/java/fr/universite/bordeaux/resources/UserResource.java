@@ -75,7 +75,9 @@ public class UserResource {
 	@Consumes("application/json")
 	@Produces({MediaType.APPLICATION_JSON})
 	public User  loginUser(User user){
-		if(!(userRepository.findUserByEmail(user.getEmail()).getPassword()).equals(user.getPassword())){
+		if(userRepository.findUserByEmail(user.getEmail())==null){
+			return null;
+		}else if(!(userRepository.findUserByEmail(user.getEmail()).getPassword()).equals(user.getPassword())){
 			return null;
 		} else {
 			return userRepository.findUserByEmail(user.getEmail());
