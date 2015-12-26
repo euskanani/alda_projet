@@ -9,7 +9,7 @@ app.factory('userFact', ['$resource', function($resource){
 
 //factory recuperation des annonces
 app.factory('annonceFactory', ['$resource', function($resource){
-	return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/:email',{email : '@email'},
+	return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/',
 			{
 		'get':    {method:'GET',isArray:true}, //configuer get pour pouvoir recevoir jSON
 	 'delete':    {method: 'DELETE', params: {id: '@id'} }

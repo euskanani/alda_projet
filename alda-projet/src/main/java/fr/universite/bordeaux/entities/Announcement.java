@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the Announcement database table.
+ * The persistent class for the announcement database table.
  * 
  */
 @Entity
@@ -43,6 +43,9 @@ public class Announcement implements Serializable {
 
 	@Column(name="prix_mobilier")
 	private int prixMobilier;
+
+	@Column(name="status_vendu")
+	private String statusVendu;
 
 	//bi-directional many-to-one association to User
 	@JsonIgnore
@@ -122,6 +125,14 @@ public class Announcement implements Serializable {
 
 	public void setPrixMobilier(int prixMobilier) {
 		this.prixMobilier = prixMobilier;
+	}
+
+	public String getStatusVendu() {
+		return this.statusVendu;
+	}
+
+	public void setStatusVendu(String statusVendu) {
+		this.statusVendu = statusVendu;
 	}
 
 	public User getUser() {

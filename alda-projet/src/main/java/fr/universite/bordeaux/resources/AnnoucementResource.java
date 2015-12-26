@@ -136,7 +136,7 @@ public class AnnoucementResource {
 			System.out.println(image);
 			announce.setImg1(image);
 			announce.setCreatedDate(new Date());
-			announce.setStatusVendu("DISPONIBLE");  
+			//announce.setStatusVendu("DISPONIBLE");  
 			announce.setUser(userRepository.findUserByEmail(announce.getMailAnnonceur()));
 			announcementRepository.addAnnouncement(announce);
 		} catch (IOException e) {
