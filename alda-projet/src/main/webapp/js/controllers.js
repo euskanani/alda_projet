@@ -109,6 +109,7 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 		.success(function(annonce) {
 			console.log(JSON.stringify(annonce));
 			console.log(JSON.stringify($scope.id));
+			$scope.editables = annonce
 			//alert(JSON.stringify($scope.id))
 			//AppSession.setData(annonce);
 			$location.url('/mesannonces');
