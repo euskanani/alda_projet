@@ -275,3 +275,56 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 }]);
 
 
+
+app.controller("eventsCtrl",['$scope', function($scope){
+	
+	$scope.bool=false;
+
+	/*
+	if(typeof(EventSource) !== "undefined") {
+		console.log('ici')
+		var url = "http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser";
+		var source = new EventSource(url,{withCredentials:false});
+		console.log('creation source bien fait')
+
+		source.onopen = function(event){
+			// do something when the connection opens
+			console.log("connexion opened")
+		}
+
+
+		source.onmessage = function (event) {
+			console.log('onmessage entered')
+			$scope.message = JSON.parse(event.data);
+			$scope.bool=true;
+			console.log(event.data);
+			alert("EVENEMENT CLASS  :"+JSON.stringify(event.data))
+		}
+		source.addEventListener("user", function(event) {
+			console.log('Listening entered')
+			$scope.message = JSON.parse(event.data);
+			$scope.bool=true;
+			console.log("EVENEMENT DESCRIPTION  :"+event.name + " " + event.data);
+			alert("EVENEMENT  :"+event.name + " " +event.data)
+		}, false);
+
+		source.onerror = function(event){
+			alert("event : something goes wrong")
+			// do something when there's an error
+		}
+
+		source.addEventListener('error',function(event){
+			console.log('error Liste entered')
+			// do something
+		},false);
+	} else {
+		$scope.message.email = "Sorry, your browser does not support server-sent events...";
+		$scope.bool=true;
+	}
+
+
+	//source.close();
+	
+	*/
+}])
+
