@@ -85,7 +85,8 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
 	.success(function(data) {
 		//alert(JSON.stringify(data))
-		console.log(JSON.stringify(data))
+		//alert($scope.id)
+		//console.log(JSON.stringify(data))
 		$scope.editables = data
 
 	})
@@ -98,7 +99,7 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 	$scope.update =function(){
 		var params = {
 				//id : AppSession.getData().id,
-				//id : $scope.editables.id,
+				id : $scope.editables.id,
 				name : $scope.editables.name,
 				description : $scope.editables.description,
 				emplacement    : $scope.editables.emplacement,
@@ -107,11 +108,11 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 
 		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/updateAnnouncement',params)
 		.success(function(annonce) {
-			console.log(JSON.stringify(annonce));
-			console.log(JSON.stringify($scope.id));
-			$scope.editables = annonce
+			//console.log(JSON.stringify(annonce));
+			//console.log(JSON.stringify($scope.id));
+			//$scope.editables = annonce
 			//alert(JSON.stringify($scope.id))
-			//AppSession.setData(annonce);
+			//$scope.editables = annonce
 			$location.url('/mesannonces');
 			alert('Bravo!Vous venez de modifier votre annonce')
 		})

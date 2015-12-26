@@ -127,7 +127,7 @@ public class Announcement implements Serializable {
 		this.prixMobilier = prixMobilier;
 	}
 
-	public String getStatusVendu() {
+	public Object getStatusVendu() {
 		return this.statusVendu;
 	}
 

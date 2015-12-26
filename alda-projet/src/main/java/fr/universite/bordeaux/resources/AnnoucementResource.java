@@ -61,6 +61,15 @@ public class AnnoucementResource {
 		User user = userRepository.findUserByEmail(email);
 		return announcementRepository.findAnnouncementsByUser(user);
 	}
+	
+	@GET
+	@Path("/getAnnouncementById/{id}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Announcement getAnnonucementById(@PathParam("id")String id){
+		return announcementRepository.findAnnouncementById(id);
+		//return userRepository.findUserById(id);
+	}
+
 
 	@POST
 	@Path("/addAnnouncement")
@@ -136,7 +145,7 @@ public class AnnoucementResource {
 			System.out.println(image);
 			announce.setImg1(image);
 			announce.setCreatedDate(new Date());
-			//announce.setStatusVendu("DISPONIBLE");  
+			announce.setStatusVendu("DISPONIBLE");  
 			announce.setUser(userRepository.findUserByEmail(announce.getMailAnnonceur()));
 			announcementRepository.addAnnouncement(announce);
 		} catch (IOException e) {
