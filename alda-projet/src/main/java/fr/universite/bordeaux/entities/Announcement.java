@@ -21,7 +21,7 @@ public class Announcement implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 
 	private String description;
@@ -127,7 +127,7 @@ public class Announcement implements Serializable {
 		this.prixMobilier = prixMobilier;
 	}
 
-	public Object getStatusVendu() {
+	public String getStatusVendu() {
 		return this.statusVendu;
 	}
 

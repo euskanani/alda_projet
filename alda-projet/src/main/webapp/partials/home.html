@@ -61,7 +61,11 @@
 
 		<div class="list-lbc">
 			<ul ng-controller="customersCtrl" class="thumbs">
-				<li  ng-repeat="annonce in names"><a href="#"
+			
+		<input type="text" ng-model="searchByEm" class="form-control" placeholder="Search by ville "> 
+        <input type="text" ng-model="searchByName" class="form-control" placeholder="Search by name "> 
+	
+				<li  ng-repeat="annonce in names | orderBy:['-createdDate'] | filter:{emplacement:searchByEm} | filter:{name:searchByName} "><a href="#"
 					title="{{ annonce.name }}">
 						<div class="thumbnail">
 							<div class="lbc">
@@ -69,6 +73,8 @@
 								<div id="date">
 								    <div>Ajouté le: </div>
 								    <div>{{ annonce.createdDate | date:'mediumDate'  }}</div>
+								    <div>{{ annonce.createdDate | date:'HH:mm'  }}</div>
+								    
 									
 								</div>
 
