@@ -328,10 +328,10 @@ app.controller("eventsCtrl",['$scope', function($scope){
 	
 	$scope.bool=false;
 
-	/*
+	//events add announcement
 	if(typeof(EventSource) !== "undefined") {
 		console.log('ici')
-		var url = "http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser";
+		var url = "alda/announcements/announcementEvent";
 		var source = new EventSource(url,{withCredentials:false});
 		console.log('creation source bien fait')
 
@@ -339,6 +339,7 @@ app.controller("eventsCtrl",['$scope', function($scope){
 			// do something when the connection opens
 			console.log("connexion opened")
 		}
+	
 
 
 		source.onmessage = function (event) {
@@ -373,6 +374,6 @@ app.controller("eventsCtrl",['$scope', function($scope){
 
 	//source.close();
 	
-	*/
+	
 }])
 
