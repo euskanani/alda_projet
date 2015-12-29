@@ -2,14 +2,11 @@ package fr.universite.bordeaux.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 
 
 /**
- * The persistent class for the announcement database table.
+ * The persistent class for the Announcement database table.
  * 
  */
 @Entity
@@ -48,7 +45,6 @@ public class Announcement implements Serializable {
 	private String statusVendu;
 
 	//bi-directional many-to-one association to User
-	@JsonIgnore
 	@ManyToOne
 	private User user;
 
