@@ -20,8 +20,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 import org.apache.commons.io.IOUtils;
+//import org.glassfish.jersey.media.sse.EventOutput;
+//import org.glassfish.jersey.media.sse.OutboundEvent;
+//import org.glassfish.jersey.media.sse.SseBroadcaster;
+//import org.glassfish.jersey.media.sse.SseFeature;
+
 import org.glassfish.jersey.media.sse.EventOutput;
 import org.glassfish.jersey.media.sse.OutboundEvent;
 import org.glassfish.jersey.media.sse.SseBroadcaster;
@@ -42,14 +46,20 @@ public class AnnoucementResource {
 	UserRepository userRepository;
 
 
+
 	private final SseBroadcaster BROADCASTER = new SseBroadcaster();
 
 	@GET
-	@Path("/events")
+	@Path("/announcementEvent")
 	@Produces(SseFeature.SERVER_SENT_EVENTS)
 	public EventOutput announcementsEvents() {
 		final EventOutput eventOutput = new EventOutput();
 		BROADCASTER.add(eventOutput);
+		OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
+		OutboundEvent event = eventBuilder.name("event")
+				.comment("")
+				.build();
+		BROADCASTER.broadcast(event);
 		return eventOutput;
 	}
 
@@ -61,7 +71,7 @@ public class AnnoucementResource {
 		User user = userRepository.findUserByEmail(email);
 		return announcementRepository.findAnnouncementsByUser(user);
 	}
-	
+
 	@GET
 	@Path("/getAnnouncementById/{id}")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -94,12 +104,6 @@ public class AnnoucementResource {
 	//@Produces("text/plain")
 	public void  updateAnnouncement(Announcement announcement, String email){
 		announcementRepository.updateAnnouncement(announcement);
-
-		// Broadcasting an un-named event with the name of the newly added item in data
-		BROADCASTER.broadcast(new OutboundEvent.Builder().data(String.class,announcement).build());
-		// Broadcasting a named "add" event with the current size of the items collection in data
-		BROADCASTER.broadcast(new OutboundEvent.Builder().name("size").data(Integer.class,
-				announcement.getName()).build());
 	}
 
 
@@ -148,6 +152,20 @@ public class AnnoucementResource {
 			announce.setStatusVendu("DISPONIBLE");  
 			announce.setUser(userRepository.findUserByEmail(announce.getMailAnnonceur()));
 			announcementRepository.addAnnouncement(announce);
+
+			//create event to broadCast
+			// Broadcasting an un-named event with the name of the newly added item in data
+			// BROADCASTER.broadcast(new OutboundEvent.Builder().data(String.class,announce).build());
+			// Broadcasting a named "add" event with the current size of the items collection in data
+			//  BROADCASTER.broadcast(new OutboundEvent.Builder().name("emplacement").mediaType(MediaType.TEXT_PLAIN_TYPE).data(String.class,announce.getEmplacement()).build());
+
+			OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
+			OutboundEvent event = eventBuilder.name("emplacement")
+					.mediaType(MediaType.TEXT_PLAIN_TYPE)
+					.data(String.class,announce.getEmplacement())
+					.build();
+			BROADCASTER.broadcast(event);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

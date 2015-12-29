@@ -2,11 +2,14 @@ package fr.universite.bordeaux;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+
+import org.glassfish.jersey.media.sse.SseFeature;
 
 import fr.universite.bordeaux.resources.AnnoucementResource;
 import fr.universite.bordeaux.resources.UserResource;
@@ -37,10 +40,14 @@ public class ApplicationConfig extends Application{
         return resources;
     }
     
-    @Override
-    public Set<Object> getSingletons() {
-        return Collections.emptySet();
-    }
+
+	@Override
+	public Set<Object> getSingletons() {
+		//return Collections.emptySet();
+		Set<Object> singletons=new HashSet<>();
+		singletons.add(new SseFeature());
+		return singletons;
+	}
     
     @Override
     public Map<String, Object> getProperties() {
