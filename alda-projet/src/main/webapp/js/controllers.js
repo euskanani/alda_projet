@@ -26,12 +26,16 @@ app.controller('customersCtrl',['$scope','$location','annonceFactory',function($
 //controller gardant lassesion
 app.controller("signinCtrl",['$scope','$http','$location','AppSession', function($scope,$http,$location,AppSession) {
 
+	
+	$scope.edit =false;
 	$scope.submitLogin = function() {
 		var params =JSON.stringify( { email: $scope.email,password :$scope.password})
 		$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/login',params)
 		.success(function(user) {
 			if((user=="")||(user==null)){
 				alert("email ou mot de passe éronné")
+				alert ($scope.email)
+				
 				$location.url('/connexion');
 			}else {
 				AppSession.setData(user);
@@ -297,6 +301,25 @@ app.controller('infoAnnonceCtrl', ['$scope','$http','$stateParams',function($sco
 	
 
 }]);
+
+app.controller('passwordCtrl',['$scope','$http','$location',function($scope,$http,$location) {
+
+	$scope.submitPassword =function(){
+		
+		$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/users/'+ $scope.user.email)
+		.success(function(data) {
+			
+			$scope.user = data
+			alert("votre mot de passe est : " + $scope.user.password)
+			$location.url('/connexion');
+
+		})
+		.error(function(status) {
+			console.log(status);
+		});
+	}
+	
+}])
 
 
 app.controller("eventsCtrl",['$scope', function($scope){

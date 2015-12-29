@@ -1,0 +1,57 @@
+
+
+<!-- Start: Main content -->
+<div class="content">
+	<div class="container">
+		<!-- Start: Announce description -->
+		<airticle class="article">
+		<div class="row bottom-space">
+			<div class="span12">
+				<div class="page-header">
+					<h1>l'annonce : {{annonce.name }}</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span10 offset1">
+
+				<div ng-show="!edit">
+				   
+					<strong>Nom :</strong> {{annonce.name }} <br>
+					<strong>Description :</strong> {{annonce.description }} <br>
+					<strong> Emplacement :</strong> {{annonce.emplacement}} <br> 
+					<strong>Prix :</strong> {{annonce.prixMobilier}}<br> <br>
+				   <button ng-click="edit=true">contactez le proprietaire</button><br><br>
+				   
+				    <img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+							alt="product name">
+				   
+				</div>
+
+				
+				<div ng-show="edit">
+				    
+					<strong>Nom :</strong> {{annonce.name }} <br>
+					<strong>Description :</strong> {{annonce.description }} <br>
+					<strong> Emplacement :</strong> {{annonce.emplacement}} <br> 
+					<strong>Prix :</strong> {{annonce.prixMobilier}}<br> <br>
+				    <strong>Contactez le proprietaire: </strong><br><br>
+					<strong>Mail :</strong> {{annonce.mailAnnonceur}} <br>
+					<strong> Telephone :</strong>{{annonce.user.telephone}} 
+					<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+							alt="product name">
+				</div>
+
+
+
+			</div>
+		</div>
+		
+		
+
+		</airticle>
+		<!-- End: Product description -->
+	</div>
+</div>
+</div>
+<!-- End: Main content -->

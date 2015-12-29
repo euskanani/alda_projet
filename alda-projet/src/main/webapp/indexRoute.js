@@ -89,6 +89,11 @@ app.config(function($stateProvider, $urlRouterProvider){
 		templateUrl: "partials/infoannonce.html",
 		controller: 'infoAnnonceCtrl'
 	})
+	.state('lostpassword', {
+		url: "/lostpassword",
+		templateUrl: "partials/lostpassword.html",
+		controller: 'passwordCtrl'
+	})
 	
 })
 
