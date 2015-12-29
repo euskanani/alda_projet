@@ -1,4 +1,4 @@
-app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annonceFactory) {
+app.controller('customersCtrl',['$scope','$location','annonceFactory',function($scope,$location, annonceFactory) {
 
 	//$scope.names = annonceFactory.query()
 	annonceFactory.get().$promise.then(function(data) {
@@ -13,6 +13,11 @@ app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annon
 	}, function(status){
 		alert('Repos error :'+status)
 	})
+	
+	$scope.consulter =function(id){
+		$location.path('/infoannonce/' + id);
+		// console.log(JSON.stringify(id));
+	}
 }])
 
 
@@ -59,7 +64,10 @@ app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',functi
 				id : AppSession.getData().id,
 				firstName : $scope.editables.firstName,
 				lastName : $scope.editables.lastName,
-				email    : $scope.editables.email
+				email    : $scope.editables.email,
+				telephone    : $scope.editables.telephone,
+				ville    : $scope.editables.ville,
+				codePostale    : $scope.editables.codePostale
 		}
 
 		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser',params)
@@ -268,6 +276,27 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 
 }]);
 
+
+app.controller('infoAnnonceCtrl', ['$scope','$http','$stateParams',function($scope,$http , $stateParams) {
+
+	
+	$scope.id = $stateParams.id
+	$scope.edit = false
+	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
+	.success(function(data) {
+		
+		$scope.annonce = data
+
+	})
+	.error(function(status) {
+		console.log(status);
+	});
+
+
+
+	
+
+}]);
 
 
 app.controller("eventsCtrl",['$scope', function($scope){

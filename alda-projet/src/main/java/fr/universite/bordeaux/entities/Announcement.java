@@ -48,7 +48,7 @@ public class Announcement implements Serializable {
 	private String statusVendu;
 
 	//bi-directional many-to-one association to User
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	private User user;
 

@@ -1,20 +1,12 @@
 package fr.universite.bordeaux.entities;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -49,12 +41,12 @@ public class User implements Serializable {
 
 	private String password;
 
-	private int telephone;
+	private String telephone;
 
 	private String ville;
 
 	//bi-directional many-to-one association to Announcement
-	@JsonIgnore	
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Announcement> announcements;
 
@@ -133,11 +125,11 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public int getTelephone() {
+	public String getTelephone() {
 		return this.telephone;
 	}
 
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 

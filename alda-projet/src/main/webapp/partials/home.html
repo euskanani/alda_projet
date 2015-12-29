@@ -65,7 +65,8 @@
 		<input type="text" ng-model="searchByEm" class="form-control" placeholder="Search by ville "> 
         <input type="text" ng-model="searchByName" class="form-control" placeholder="Search by name "> 
 	
-				<li  ng-repeat="annonce in names | orderBy:['-createdDate'] | filter:{emplacement:searchByEm} | filter:{name:searchByName} "><a href="#"
+				<li  ng-repeat="annonce in names | orderBy:['-createdDate'] | filter:{emplacement:searchByEm} | filter:{name:searchByName} ">
+				<a ng-click="consulter(annonce.id)"
 					title="{{ annonce.name }}">
 						<div class="thumbnail">
 							<div class="lbc">
