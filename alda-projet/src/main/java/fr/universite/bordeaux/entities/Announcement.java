@@ -46,6 +46,16 @@ public class Announcement implements Serializable {
 
 	@Column(name="status_vendu")
 	private String statusVendu;
+	
+	private int surface;
+
+	public int getSurface() {
+		return surface;
+	}
+
+	public void setSurface(int surface) {
+		this.surface = surface;
+	}
 
 	//bi-directional many-to-one association to User
 	//@JsonIgnore

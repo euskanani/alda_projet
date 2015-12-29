@@ -1,7 +1,7 @@
 
 
 <!-- Start: Main content -->
-<div class="content"    >
+<div class="content">
 	<div class="container">
 		<!-- Start: Announce description -->
 		<airticle class="article">
@@ -16,21 +16,24 @@
 			<div class="span10 offset1">
 
 				<div ng-show="!edit">
-				Nom :	{{editables.name }} <br> Description : {{editables.description }} <br>
-			    Emplacement :		{{editables.emplacement}} <br> Prix :  {{editables.prixMobilier}} <br>
-					<button ng-click="edit=true">edit</button>
+					<strong>Nom :</strong> {{editables.name }} <br> <strong>Description :</strong>
+						{{editables.description }} <br> <strong>Emplacement :</strong>
+						{{editables.emplacement}} <br> <strong>Prix :</strong>
+						{{editables.prixMobilier}} <br> <strong>Surface :</strong>
+						{{editables.surface}} <br>
+						<button ng-click="edit=true">edit</button>
 				</div>
 
 
 
-				<form ng-show="edit" >
-				
-				    <fieldset class="form-group">
+				<form ng-show="edit">
+
+					<fieldset class="form-group">
 						<label for="exampleTextarea"></label> <input type="hidden"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="editables.id">
 					</fieldset>
- 					
+
 					<fieldset class="form-group">
 						<label for="exampleTextarea">Nom</label> <input type="text"
 							class="form-control" id="exampleInputEmail1"
@@ -39,8 +42,8 @@
 
 
 					<fieldset class="form-group">
-						<label for="exampleTextarea">Description</label> <input type="text"
-							class="form-control" id="exampleInputEmail1"
+						<label for="exampleTextarea">Description</label> <input
+							type="text" class="form-control" id="exampleInputEmail1"
 							ng-model="editables.description">
 					</fieldset>
 
@@ -49,11 +52,17 @@
 							class="form-control" id="exampleInputEmail1"
 							ng-model="editables.emplacement">
 					</fieldset>
-					
+
 					<fieldset class="form-group">
 						<label for="exampleInputEmail1">Prix</label> <input type="text"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="editables.prixMobilier">
+					</fieldset>
+					
+					<fieldset class="form-group">
+						<label for="exampleInputEmail1">Surface</label> <input type="text"
+							class="form-control" id="exampleInputEmail1"
+							ng-model="editables.surface">
 					</fieldset>
 
 					<input type="button" class="btn btn-primary" value="valider"

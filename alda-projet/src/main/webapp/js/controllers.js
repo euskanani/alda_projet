@@ -112,7 +112,8 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 				name : $scope.editables.name,
 				description : $scope.editables.description,
 				emplacement    : $scope.editables.emplacement,
-				prixMobilier   : $scope.editables.prixMobilier
+				prixMobilier   : $scope.editables.prixMobilier,
+				surface   : $scope.editables.surface
 		}
 
 		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/updateAnnouncement',params)
@@ -143,7 +144,8 @@ app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$ti
 				description :$scope.model.description,
 				emplacement :$scope.model.emplacement,
 				mailAnnonceur :$scope.model.mailAnnonceur,
-				prixMobilier :$scope.model.prixMobilier
+				prixMobilier :$scope.model.prixMobilier,
+				surface :$scope.model.surface
 		};  
 
 		for (var key in $scope.model) { 
