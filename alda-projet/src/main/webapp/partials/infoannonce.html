@@ -16,38 +16,59 @@
 			<div class="span10 offset1">
 
 				<div ng-show="!edit">
-				   
-					<strong>Nom :</strong> {{annonce.name }} <br>
-					<strong>Description :</strong> {{annonce.description }} <br>
-					<strong> Emplacement :</strong> {{annonce.emplacement}} <br> 
-					<strong>Prix :</strong> {{annonce.prixMobilier}}<br> <br>
-				   <button ng-click="edit=true">contactez le proprietaire</button><br><br>
-				   
-				    <img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
-							alt="product name">
-				   
+
+					<strong>Nom :</strong> {{annonce.name }} <br> <strong>Description
+						:</strong> {{annonce.description }} <br> <strong> Emplacement
+						:</strong> {{annonce.emplacement}} <br> <strong>Prix :</strong>
+					{{annonce.prixMobilier}}<br> <br>
+					<button ng-click="edit=true" class="btn btn-primary btn-large">contactez
+						le propri&eacute;taire</button>
+					<br>
+					<br>
+
+					<div id="image">
+
+						<div class="image-and-nb">
+							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+								>
+							<div class="nb">
+								<div class="top radius">&nbsp;</div>
+								<div class="value radius">1</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 
-				
+
 				<div ng-show="edit">
-				    
-					<strong>Nom :</strong> {{annonce.name }} <br>
-					<strong>Description :</strong> {{annonce.description }} <br>
-					<strong> Emplacement :</strong> {{annonce.emplacement}} <br> 
-					<strong>Prix :</strong> {{annonce.prixMobilier}}<br> <br>
-				    <strong>Contactez le proprietaire: </strong><br><br>
-					<strong>Mail :</strong> {{annonce.mailAnnonceur}} <br>
-					<strong> Telephone :</strong>{{annonce.user.telephone}} 
-					<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
-							alt="product name">
+
+					<strong>Nom :</strong> {{annonce.name }} <br> <strong>Description
+						:</strong> {{annonce.description }} <br> <strong> Emplacement
+						:</strong> {{annonce.emplacement}} <br> <strong>Prix :</strong>
+					{{annonce.prixMobilier}}<br> <br> <strong>Coordonn&eacute;es
+						: </strong><br>
+					<br> <strong>Mail :</strong> {{annonce.mailAnnonceur}} <br>
+					<strong> Telephone :</strong>{{annonce.user.telephone}}
+					<div id="image">
+
+						<div class="image-and-nb">
+							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+								>
+							<div class="nb">
+								<div class="top radius">&nbsp;</div>
+								<div class="value radius">1</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 
 
 			</div>
 		</div>
-		
-		
+
+
 
 		</airticle>
 		<!-- End: Product description -->
