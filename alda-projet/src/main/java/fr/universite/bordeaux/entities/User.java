@@ -1,24 +1,12 @@
 package fr.universite.bordeaux.entities;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * The persistent class for the user database table.
+ * The persistent class for the User database table.
  * 
  */
 @Entity
@@ -52,11 +40,6 @@ public class User implements Serializable {
 	private int telephone;
 
 	private String ville;
-
-	//bi-directional many-to-one association to Announcement
-	@JsonIgnore	
-	@OneToMany(mappedBy="user")
-	private List<Announcement> announcements;
 
 	public User() {
 	}
@@ -147,28 +130,6 @@ public class User implements Serializable {
 
 	public void setVille(String ville) {
 		this.ville = ville;
-	}
-
-	public List<Announcement> getAnnouncements() {
-		return this.announcements;
-	}
-
-	public void setAnnouncements(List<Announcement> announcements) {
-		this.announcements = announcements;
-	}
-
-	public Announcement addAnnouncement(Announcement announcement) {
-		getAnnouncements().add(announcement);
-		announcement.setUser(this);
-
-		return announcement;
-	}
-
-	public Announcement removeAnnouncement(Announcement announcement) {
-		getAnnouncements().remove(announcement);
-		announcement.setUser(null);
-
-		return announcement;
 	}
 
 }
