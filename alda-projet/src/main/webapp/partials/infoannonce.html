@@ -1,0 +1,78 @@
+
+
+<!-- Start: Main content -->
+<div class="content">
+	<div class="container">
+		<!-- Start: Announce description -->
+		<airticle class="article">
+		<div class="row bottom-space">
+			<div class="span12">
+				<div class="page-header">
+					<h1>l'annonce : {{annonce.name }}</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span10 offset1">
+
+				<div ng-show="!edit">
+
+					<strong>Nom :</strong> {{annonce.name }} <br> <strong>Description
+						:</strong> {{annonce.description }} <br> <strong> Emplacement
+						:</strong> {{annonce.emplacement}} <br> <strong>Prix :</strong>
+					{{annonce.prixMobilier}}<br> <br>
+					<button ng-click="edit=true" class="btn btn-primary btn-large">contactez
+						le propri&eacute;taire</button>
+					<br>
+					<br>
+
+					<div id="image">
+
+						<div class="image-and-nb">
+							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+								>
+							<div class="nb">
+								<div class="top radius">&nbsp;</div>
+								<div class="value radius">1</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div ng-show="edit">
+
+					<strong>Nom :</strong> {{annonce.name }} <br> <strong>Description
+						:</strong> {{annonce.description }} <br> <strong> Emplacement
+						:</strong> {{annonce.emplacement}} <br> <strong>Prix :</strong>
+					{{annonce.prixMobilier}}<br> <br> <strong>Coordonn&eacute;es
+						: </strong><br>
+					<br> <strong>Mail :</strong> {{annonce.mailAnnonceur}} <br>
+					<strong> Telephone :</strong>{{annonce.user.telephone}}
+					<div id="image">
+
+						<div class="image-and-nb">
+							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
+								>
+							<div class="nb">
+								<div class="top radius">&nbsp;</div>
+								<div class="value radius">1</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+
+
+
+		</airticle>
+		<!-- End: Product description -->
+	</div>
+</div>
+</div>
+<!-- End: Main content -->

@@ -12,7 +12,7 @@
 					<div class="widget-body">
 						<div class="center-align">
 							<form class="form-horizontal form-signin-signup"
-								ng-controller="signinCtrl">
+								>
 								<input type="text" name="email" placeholder="Email"
 									ng-model="email" required> <input type="password"
 									name="password" placeholder="Password" ng-model="password"
@@ -20,7 +20,9 @@
 								<div>
 									<input type="submit" value="Connexion"
 										class="btn btn-primary btn-large" ng-click="submitLogin()">
+										
 								</div>
+								<a ui-sref="lostpassword">Mot de passe oubli&eacute; ?</a>
 							</form>
 							<h4>
 								<i class="icon-question-sign"></i> pas de compte?

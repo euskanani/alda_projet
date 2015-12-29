@@ -1,4 +1,4 @@
-app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annonceFactory) {
+app.controller('customersCtrl',['$scope','$location','annonceFactory',function($scope,$location, annonceFactory) {
 
 	//$scope.names = annonceFactory.query()
 	annonceFactory.get().$promise.then(function(data) {
@@ -13,6 +13,11 @@ app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annon
 	}, function(status){
 		alert('Repos error :'+status)
 	})
+	
+	$scope.consulter =function(id){
+		$location.path('/infoannonce/' + id);
+		// console.log(JSON.stringify(id));
+	}
 }])
 
 
@@ -21,12 +26,16 @@ app.controller('customersCtrl',['$scope','annonceFactory',function($scope, annon
 //controller gardant lassesion
 app.controller("signinCtrl",['$scope','$http','$location','AppSession', function($scope,$http,$location,AppSession) {
 
+	
+	$scope.edit =false;
 	$scope.submitLogin = function() {
 		var params =JSON.stringify( { email: $scope.email,password :$scope.password})
 		$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/login',params)
 		.success(function(user) {
 			if((user=="")||(user==null)){
 				alert("email ou mot de passe éronné")
+				alert ($scope.email)
+				
 				$location.url('/connexion');
 			}else {
 				AppSession.setData(user);
@@ -59,7 +68,10 @@ app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',functi
 				id : AppSession.getData().id,
 				firstName : $scope.editables.firstName,
 				lastName : $scope.editables.lastName,
-				email    : $scope.editables.email
+				email    : $scope.editables.email,
+				telephone    : $scope.editables.telephone,
+				ville    : $scope.editables.ville,
+				codePostale    : $scope.editables.codePostale
 		}
 
 		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser',params)
@@ -268,6 +280,46 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 
 }]);
 
+
+app.controller('infoAnnonceCtrl', ['$scope','$http','$stateParams',function($scope,$http , $stateParams) {
+
+	
+	$scope.id = $stateParams.id
+	$scope.edit = false
+	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
+	.success(function(data) {
+		
+		$scope.annonce = data
+
+	})
+	.error(function(status) {
+		console.log(status);
+	});
+
+
+
+	
+
+}]);
+
+app.controller('passwordCtrl',['$scope','$http','$location',function($scope,$http,$location) {
+
+	$scope.submitPassword =function(){
+		
+		$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/users/'+ $scope.user.email)
+		.success(function(data) {
+			
+			$scope.user = data
+			alert("votre mot de passe est : " + $scope.user.password)
+			$location.url('/connexion');
+
+		})
+		.error(function(status) {
+			console.log(status);
+		});
+	}
+	
+}])
 
 
 app.controller("eventsCtrl",['$scope', function($scope){

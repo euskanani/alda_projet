@@ -16,8 +16,9 @@
 			<div class="span10 offset1">
 
 				<div ng-show="!edit">
-					{{editables.firstName }} <br> {{editables.lastName }} <br>
-					{{editables.email}} <br> {{editables.dateInscription}} <br>
+				Nom : 	{{editables.firstName }} <br>Prenom : {{editables.lastName }} <br>
+				Email : 	{{editables.email}} <br>Date d'inscription : {{editables.dateInscription | date:'longDate'}} <br>
+				Telephone :	{{editables.telephone}} <br> Ville :{{editables.ville}} <br>Code postal : {{editables.codePostale}} <br>  
 					<button ng-click="edit=true">edit</button>
 				</div>
 
@@ -42,6 +43,24 @@
 						<label for="exampleInputEmail1">Email</label> <input type="text"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="editables.email">
+					</fieldset>
+					
+					<fieldset class="form-group">
+						<label for="exampleInputEmail1">Telephone</label> <input type="text"
+							class="form-control" id="exampleInputEmail1"
+							ng-model="editables.telephone">
+					</fieldset>
+					
+					<fieldset class="form-group">
+						<label for="exampleInputEmail1">Ville</label> <input type="text"
+							class="form-control" id="exampleInputEmail1"
+							ng-model="editables.ville">
+					</fieldset>
+					
+					<fieldset class="form-group">
+						<label for="exampleInputEmail1">Code postal</label> <input type="text"
+							class="form-control" id="exampleInputEmail1"
+							ng-model="editables.codePostale">
 					</fieldset>
 
 					<input type="button" class="btn btn-primary" value="valider"
