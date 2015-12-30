@@ -1,7 +1,7 @@
 
 
 <!-- Start: Main content -->
-<div class="content" >
+<div class="content">
 	<div class="container">
 		<!-- Start: Product description -->
 		<airticle class="article">
@@ -15,16 +15,40 @@
 		<div class="row">
 			<div class="span10 offset1">
 
-				<div ng-show="!edit">
-				Nom : 	{{editables.firstName }} <br>Prenom : {{editables.lastName }} <br>
-				Email : 	{{editables.email}} <br>Date d'inscription : {{editables.dateInscription | date:'longDate'}} <br>
-				Telephone :	{{editables.telephone}} <br> Ville :{{editables.ville}} <br>Code postal : {{editables.codePostale}} <br>  
-					<button ng-click="edit=true">edit</button>
+				<div ng-show="!edit" class="thumbnail">
+					<div class="caption">
+						<p>
+							<strong>Nom :</strong> {{editables.firstName }}
+						</p>
+						 <p>
+						 <strong>Prenom :</strong> {{editables.lastName }}
+						</p>
+						<p>
+						 <strong>Email :</strong> {{editables.email}}
+						</p>
+						<p>
+						 <strong>Date d'inscription </strong>
+						{{editables.dateInscription | date:'longDate'}}
+						</p>
+						 <p>
+						<strong>Telephone :</strong> {{editables.telephone}}
+						</p>
+						<p>
+						 <strong>Ville :</strong>{{editables.ville}}
+						</p>
+						<p>
+						 <strong>Code postal :</strong> {{editables.codePostale}}
+						</p>
+						
+						</div>
+
+				</div>
+				<div>
+					<button ng-click="edit=true" class="btn btn-primary">edit</button>
 				</div>
 
 
-
-				<form ng-show="edit"  >
+				<form ng-show="edit" name="myForm">
 
 					<fieldset class="form-group">
 						<label for="exampleTextarea">Nom</label> <input type="text"
@@ -42,29 +66,33 @@
 					<fieldset class="form-group">
 						<label for="exampleInputEmail1">Email</label> <input type="text"
 							class="form-control" id="exampleInputEmail1"
-							ng-model="editables.email">
+							ng-model="editables.email" required>
+
 					</fieldset>
-					
+
 					<fieldset class="form-group">
-						<label for="exampleInputEmail1">Telephone</label> <input type="text"
-							class="form-control" id="exampleInputEmail1"
+						<label for="exampleInputEmail1">Telephone</label> <input
+							type="text" class="form-control" id="exampleInputEmail1"
 							ng-model="editables.telephone">
 					</fieldset>
-					
+
 					<fieldset class="form-group">
 						<label for="exampleInputEmail1">Ville</label> <input type="text"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="editables.ville">
 					</fieldset>
-					
+
 					<fieldset class="form-group">
-						<label for="exampleInputEmail1">Code postal</label> <input type="text"
+						<label for="exampleInputEmail1">Code postal</label> <input
+							type="text" name="codePostale" ng-maxlength="5"
 							class="form-control" id="exampleInputEmail1"
-							ng-model="editables.codePostale">
+							ng-model="editables.codePostale"> <span
+							class="text-danger" ng-show="myForm.codePostale.$error.maxlength">
+							Le code postal Doit contenir au maximum 5 chiffre !! </span>
 					</fieldset>
 
 					<input type="button" class="btn btn-primary" value="valider"
-						ng-click="update()" />
+						ng-click="update()" ng-disabled="myForm.$invalid" />
 				</form>
 
 			</div>

@@ -37,15 +37,21 @@
 					</fieldset>
 
 					<fieldset class="form-group">
-						<label for="exampleTextarea">Prix</label> <input type="number"
+						<label for="exampleTextarea">Prix</label> <input type="number" name = "Prix"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="model.prixMobilier">
+							<span class="text-danger" ng-show="myForm.Prix.$error.number">
+                                 Le prix est un entier  !!
+                            </span>
 					</fieldset>
 					
 					<fieldset class="form-group">
-						<label for="exampleTextarea">Surface</label> <input type="number"
+						<label for="exampleTextarea">Surface</label> <input type="number" name ="Surface"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="model.surface">
+							<span class="text-danger" ng-show="myForm.Surface.$error.number">
+                                 La surface est un entier  !!
+                            </span>
 					</fieldset>
 
 					<!--  

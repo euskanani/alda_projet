@@ -20,17 +20,16 @@
 					<strong>Nom :</strong> {{annonce.name }} <br> <strong>Description
 						:</strong> {{annonce.description }} <br> <strong> Emplacement
 						:</strong> {{annonce.emplacement}} <br> <strong>Prix :</strong>
-					{{annonce.prixMobilier}}<br> <strong>Surface :</strong> {{annonce.surface }} <br><br>
+					{{annonce.prixMobilier}} &nbsp;&euro;<br> <strong>Surface
+						:</strong> {{annonce.surface }} m<sup>2</sup> <br> <br>
 					<button ng-click="edit=true" class="btn btn-primary btn-large">contactez
 						le propri&eacute;taire</button>
-					<br>
-					<br>
+					<br> <br>
 
 					<div id="image">
 
 						<div class="image-and-nb">
-							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
-								>
+							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}">
 							<div class="nb">
 								<div class="top radius">&nbsp;</div>
 								<div class="value radius">1</div>
@@ -46,15 +45,14 @@
 					<strong>Nom :</strong> {{annonce.name }} <br> <strong>Description
 						:</strong> {{annonce.description }} <br> <strong> Emplacement
 						:</strong> {{annonce.emplacement}} <br> <strong>Prix :</strong>
-					{{annonce.prixMobilier}}<br> <br> <strong>Coordonn&eacute;es
-						: </strong><br>
-					<br> <strong>Mail :</strong> {{annonce.mailAnnonceur}} <br>
-					<strong> Telephone :</strong>{{annonce.user.telephone}}
+					{{annonce.prixMobilier}} &nbsp;&euro; <br> <strong>Surface
+						:</strong> {{annonce.surface }} m<sup>2</sup> <br> <br> <strong>Coordonn&eacute;es
+						: </strong><br> <br> <strong>Mail :</strong>
+					{{annonce.mailAnnonceur}} <br> <strong> Telephone :</strong>{{annonce.user.telephone}}
 					<div id="image">
 
 						<div class="image-and-nb">
-							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}"
-								>
+							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}">
 							<div class="nb">
 								<div class="top radius">&nbsp;</div>
 								<div class="value radius">1</div>
