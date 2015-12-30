@@ -25,11 +25,13 @@ public class Announcement implements Serializable {
 
 	private String emplacement;
 
+	@Lob
 	@Column(name="img_1")
-	private Object img1;
+	private byte[] img1;
 
+	@Lob
 	@Column(name="img_2")
-	private Object img2;
+	private byte[] img2;
 
 	@Column(name="mail_annonceur")
 	private String mailAnnonceur;
@@ -83,19 +85,19 @@ public class Announcement implements Serializable {
 		this.emplacement = emplacement;
 	}
 
-	public Object getImg1() {
+	public byte[] getImg1() {
 		return this.img1;
 	}
 
-	public void setImg1(Object img1) {
+	public void setImg1(byte[] img1) {
 		this.img1 = img1;
 	}
 
-	public Object getImg2() {
+	public byte[] getImg2() {
 		return this.img2;
 	}
 
-	public void setImg2(Object img2) {
+	public void setImg2(byte[] img2) {
 		this.img2 = img2;
 	}
 
