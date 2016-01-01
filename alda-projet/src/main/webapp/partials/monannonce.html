@@ -12,21 +12,38 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row-fluid">
 			<div class="span10 offset1">
 
-				<div ng-show="!edit">
-					<strong>Nom :</strong> {{editables.name }} <br> <strong>Description :</strong>
-						{{editables.description }} <br> <strong>Emplacement :</strong>
-						{{editables.emplacement}} <br> <strong>Prix :</strong>
-						{{editables.prixMobilier}} <br> <strong>Surface :</strong>
-						{{editables.surface}} <br>
-						<button ng-click="edit=true">edit</button>
+				<div ng-show="!edit" class="thumbnail">
+					<div class="caption">
+						<p>
+							<strong>Nom :</strong> {{editables.name }}
+						</p>
+						<p>
+							<strong>Description :</strong>{{editables.description }}
+						</p>
+						<p>
+							<strong>Emplacement :</strong> {{editables.emplacement}}
+						</p>
+						<p>
+							<strong>Prix :</strong> {{editables.prixMobilier}} &nbsp;&euro;
+						</p>
+						<p>
+							<strong>Surface :</strong> {{editables.surface}} m<sup>2</sup>
+						</p>
+					</div>
+
+					<div>
+						<p>
+							<button ng-click="edit=true" class="btn btn-primary btn-large">edit</button>
+						</p>
+					</div>
 				</div>
 
 
 
-				<form ng-show="edit">
+				<form ng-show="edit" name="myForm">
 
 					<fieldset class="form-group">
 						<label for="exampleTextarea"></label> <input type="hidden"
@@ -54,15 +71,21 @@
 					</fieldset>
 
 					<fieldset class="form-group">
-						<label for="exampleInputEmail1">Prix</label> <input type="text"
+						<label for="exampleInputEmail1">Prix</label> <input type="number" name="Prix"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="editables.prixMobilier">
+							<span class="text-danger" ng-show="myForm.Prix.$error.number">
+                                 Le prix est un entier  !!
+                            </span>
 					</fieldset>
-					
+
 					<fieldset class="form-group">
-						<label for="exampleInputEmail1">Surface</label> <input type="text"
+						<label for="exampleInputEmail1">Surface</label> <input type="number" name="Surface"
 							class="form-control" id="exampleInputEmail1"
 							ng-model="editables.surface">
+							<span class="text-danger" ng-show="myForm.Surface.$error.number">
+                                 La surface est un entier  !!
+                            </span>
 					</fieldset>
 
 					<input type="button" class="btn btn-primary" value="valider"

@@ -363,7 +363,7 @@ app.controller("eventsCtrl",['$scope', function($scope){
 		}, false);
 
 		source.onerror = function(event){
-			alert("event : something goes wrong")
+			//alert("event : something goes wrong")
 			// do something when there's an error
 		}
 
