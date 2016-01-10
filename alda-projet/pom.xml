@@ -12,6 +12,15 @@
 		<cxf.version>2.6.14</cxf.version>
 	</properties>
 
+	<developers>
+		<developer>
+			<name>Youssef Chagtab</name>
+		</developer>
+		<developer>
+			<name>Kanani Eusèbe</name>
+		</developer>
+	</developers>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
