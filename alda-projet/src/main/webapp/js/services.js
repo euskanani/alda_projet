@@ -1,6 +1,6 @@
 //factory qui permet de recupere un utilisateur par mail
 app.factory('userFact', ['$resource', function($resource){
-	return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/users/:email',{email : '@email'},
+	return $resource('http://localhost:8080/alda-projet/alda/users/:email',{email : '@email'},
 			{
 		'get':    {method:'GET',isArray:true }
 			});
@@ -9,7 +9,7 @@ app.factory('userFact', ['$resource', function($resource){
 
 //factory recuperation des annonces
 app.factory('annonceFactory', ['$resource', function($resource){
-	return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/:email',{email : '@email'},
+	return $resource('http://localhost:8080/alda-projet/alda/announcements/:email',{email : '@email'},
 			{
 		'get':    {method:'GET',isArray:true}, //configuer get pour pouvoir recevoir jSON
 	 'delete':    {method: 'DELETE', params: {id: '@id'} }
@@ -19,7 +19,7 @@ app.factory('annonceFactory', ['$resource', function($resource){
 
 //factory pour modifier un user
 app.factory('updateUserFactory', function ($resource) {
-    return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser/:email', {email : '@email'}, {
+    return $resource('http://localhost:8080/alda-projet/alda/users/updateUser/:email', {email : '@email'}, {
         
         update: { method: 'PUT', params: {email: '@email'} },
         

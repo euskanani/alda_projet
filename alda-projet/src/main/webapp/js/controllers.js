@@ -30,7 +30,7 @@ app.controller("signinCtrl",['$scope','$http','$location','AppSession', function
 	$scope.edit =false;
 	$scope.submitLogin = function() {
 		var params =JSON.stringify( { email: $scope.email,password :$scope.password})
-		$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/login',params)
+		$http.post('http://localhost:8080/alda-projet/alda/users/login',params)
 		.success(function(user) {
 			if((user=="")||(user==null)){
 				alert("email ou mot de passe éronné")
@@ -74,7 +74,7 @@ app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',functi
 				codePostale    : $scope.editables.codePostale
 		}
 
-		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser',params)
+		$http.put('http://localhost:8080/alda-projet/alda/users/updateUser',params)
 		.success(function(user) {
 			console.log(JSON.stringify(user));
 			AppSession.setData(user);
@@ -93,7 +93,7 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 
 	$scope.id = $stateParams.id
 	$scope.edit = false
-	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
+	$http.get('http://localhost:8080/alda-projet/alda/announcements/getAnnouncementById/'+ $scope.id)
 	.success(function(data) {
 
 		$scope.editables = data
@@ -116,7 +116,7 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 				surface   : $scope.editables.surface
 		}
 
-		$http.put('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/updateAnnouncement',params)
+		$http.put('http://localhost:8080/alda-projet/alda/announcements/updateAnnouncement',params)
 		.success(function(annonce) {
 
 			$location.url('/mesannonces');
@@ -154,7 +154,7 @@ app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$ti
 		console.log(JSON.stringify(file));
 
 		file.upload = Upload.http({
-			url: 'http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/createAnnouncement/'+JSON.stringify($scope.announcement),
+			url: 'http://localhost:8080/alda-projet/alda/announcements/createAnnouncement/'+JSON.stringify($scope.announcement),
 			headers: {
 				'Content-Type': file.type
 			},
@@ -201,7 +201,7 @@ app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession',
 		} else{
 			var params ={ email: $scope.signupEmail,password :$scope.signupPassword }
 			alert($scope.signupEmail + "  "+ $scope.signupPassword)
-			$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser',params)
+			$http.post('http://localhost:8080/alda-projet/alda/users/addUser',params)
 			.success(function(user) {
 				if(user==""){
 					alert("email déjà utilisé");
@@ -221,7 +221,7 @@ app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession',
 
 app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','annonceFactory','AppSession', function($scope,$http,$location,$uibModal, annonceFactory,AppSession) {
 
-	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+AppSession.getData().email)
+	$http.get('http://localhost:8080/alda-projet/alda/announcements/'+AppSession.getData().email)
 	.success(function(data) {
 		console.log(JSON.stringify(data))
 		$scope.annonces = data
@@ -250,7 +250,7 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 					$scope.deleteAnn = function() {
 						$http({
 							method : 'DELETE',
-							url :'http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/'+ id})
+							url :'http://localhost:8080/alda-projet/alda/announcements/'+ id})
 							.success(function(status) {		
 								window.location.reload(true); 
 							})
@@ -288,7 +288,7 @@ app.controller('infoAnnonceCtrl', ['$scope','$http','$stateParams',function($sco
 
 	$scope.id = $stateParams.id
 	$scope.edit = false
-	$http.get('http://localhost:8080/ExerciseJPAWithMysql/alda/announcements/getAnnouncementById/'+ $scope.id)
+	$http.get('http://localhost:8080/alda-projet/alda/announcements/getAnnouncementById/'+ $scope.id)
 	.success(function(data) {
 
 		$scope.annonce = data
@@ -308,7 +308,7 @@ app.controller('passwordCtrl',['$scope','$http','$location',function($scope,$htt
 
 	$scope.submitPassword =function(){
 
-		$http.post('http://localhost:8080/ExerciseJPAWithMysql/alda/users/resetPassword/'+ $scope.user.email)
+		$http.post('http://localhost:8080/alda-projet/alda/users/resetPassword/'+ $scope.user.email)
 		.success(function(data) {
 
 			if(data=="email envoyé"){
@@ -337,7 +337,7 @@ app.controller("eventsCtrl",['$scope', function($scope){
 	if(typeof(EventSource) !== "undefined") {
 		console.log('ici')
 		var url = "alda/announcements/announcementEvent";
-		var source = new EventSource(url,{withCredentials:false});
+		var source = new EventSource(url);
 		console.log('creation source bien fait')
 
 		source.onopen = function(event){
