@@ -125,6 +125,7 @@
 
 	</dependencies>
 	<build>
+	    <finalName>alda-projet</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.openejb.maven</groupId>
