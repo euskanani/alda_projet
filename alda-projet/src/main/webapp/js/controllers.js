@@ -11,7 +11,7 @@ app.controller('customersCtrl',['$scope','$location','annonceFactory',function($
 			}
 		}
 	}, function(status){
-		alert('Repos error :'+status)
+		console.log('Repos error :'+status)
 	})
 
 	$scope.consulter =function(id){
@@ -311,7 +311,7 @@ app.controller('passwordCtrl',['$scope','$http','$location',function($scope,$htt
 		$http.post('http://localhost:8080/alda-projet/alda/users/resetPassword/'+ $scope.user.email)
 		.success(function(data) {
 
-			if(data=="email envoyé"){
+			if(data=="email envoye"){
 				alert("votre mot de pass a été envoyé à votre email")
 			} else if (data=="email non valide"){
 				alert('votre email est invalide')

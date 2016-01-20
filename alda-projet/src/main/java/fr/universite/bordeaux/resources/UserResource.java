@@ -145,12 +145,12 @@ public class UserResource {
             message.setFrom(new InternetAddress("kenetienne15@gmail.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("resetting password..");
-			String emailBody = "Vous avez demandé votre mot de passe.c'est : " +userRepository.findUserByEmail(email).getPassword()+"\n   Suivez ce lien http://localhost:8080/ExerciseJPAWithMysql/index.html#/connexion  pour vous connecter.\n\nCordialement, \n\nAldaMarket Admin";
+			String emailBody = "votre mot de passe est : " +userRepository.findUserByEmail(email).getPassword()+"\n   Suivez ce lien http://localhost:8080/alda-projet/index.html#/connexion  pour vous connecter.\n\nCordialement, \n\nAldaMarket Admin";
 			message.setText(emailBody);
 
             Transport.send(message);
             
-			return Response.status(200).entity("email envoyé").build();
+			return Response.status(200).entity("email envoye").build();
 
 		}else {
 			return Response.status(404).entity("email non valide").build();
