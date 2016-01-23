@@ -1,5 +1,6 @@
 package fr.universite.bordeaux.resources;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,6 +29,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,6 +40,9 @@ import fr.universite.bordeaux.repositories.UserRepository;
 public class UserResource {
 	@EJB
 	UserRepository userRepository;
+	
+	@Context
+	ServletContext connectedUsers;
 	
 	//@Resource(name = "mail/Default")//, type = javax.mail.Session.class)
 	//Session session;
@@ -98,10 +104,68 @@ public class UserResource {
 		}else if(!(userRepository.findUserByEmail(user.getEmail()).getPassword()).equals(user.getPassword())){
 			return null;
 		} else {
+			System.out.println("I m gonna connect");
+			List<String> usersMail=(List<String>) connectedUsers.getAttribute("connectedUsers");
+			if(usersMail==null){
+				System.out.println("no user connected yet");
+				List<String> contextmails=new ArrayList<String>();
+				contextmails.add(user.getEmail());
+				connectedUsers.setAttribute("connectedUsers", contextmails);
+			}else {
+				System.out.println("users connected exist");
+				usersMail.add(user.getEmail());
+				connectedUsers.removeAttribute("connectedUsers");
+				connectedUsers.setAttribute("connectedUsers", usersMail);
+			    @SuppressWarnings("unchecked")
+				List<String> toPrint = (List<String>) connectedUsers.getAttribute("connectedUsers");
+			    for(String email :toPrint){
+			    	System.out.println("users connected are :"+email);
+			    }
+			}
 			return userRepository.findUserByEmail(user.getEmail());
 		}
 
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@GET
+	@Path("/connectedUsers")
+	@Produces({MediaType.APPLICATION_JSON})
+	public List<String> getConnectedUsers(){
+		List<String> toSend = (List<String>) connectedUsers.getAttribute("connectedUsers");
+		return toSend;
+	}
+	
+	
+	
+	@POST
+	@Path("logout/{email}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes("*/*")
+	public Response logout(@PathParam("email")String email){
+		System.out.println(email);
+		System.out.println("I m going away, don t leave text message");
+		
+		@SuppressWarnings("unchecked")
+		List<String> usersMail=(List<String>) connectedUsers.getAttribute("connectedUsers");
+		for(int i = 0; i < usersMail.size();i++){
+		    if(usersMail.get(i).equals(email)){
+		       usersMail.remove(i--);
+		    }
+		}
+		connectedUsers.removeAttribute("connectedUsers");
+		connectedUsers.setAttribute("connectedUsers", usersMail);
+		
+		System.out.println("users connected are :");
+	    @SuppressWarnings("unchecked")
+		List<String> toPrint = (List<String>) connectedUsers.getAttribute("connectedUsers");
+	    for(String emai :toPrint){
+	    	System.out.println(emai);
+	    }
+	    
+	    return Response.status(200).entity("user deconnected").build();
+	} 
 
 
 

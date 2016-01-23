@@ -105,6 +105,15 @@ public class AnnoucementResource {
 	public void  updateAnnouncement(Announcement announcement, String email){
 		announcementRepository.updateAnnouncement(announcement);
 	}
+	
+	@PUT
+	@Path("/isSold")
+	@Consumes("application/json")
+	@Produces({MediaType.APPLICATION_JSON})
+	public void isSold(Announcement announcement, String email){
+		announcement.setStatusVendu("VENDU");
+		announcementRepository.updateAnnouncement(announcement);
+	}
 
 
 

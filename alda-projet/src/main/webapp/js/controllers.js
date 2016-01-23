@@ -1,6 +1,7 @@
+//CTRL AFFICHAGE DE TOUS LES ANNONCES
 app.controller('customersCtrl',['$scope','$location','annonceFactory',function($scope,$location, annonceFactory) {
-
-	//$scope.names = annonceFactory.query()
+	
+	//$scope.names = annonc;eFactory.query()
 	annonceFactory.get().$promise.then(function(data) {
 		$scope.names= data
 		for(var key in data){
@@ -23,7 +24,7 @@ app.controller('customersCtrl',['$scope','$location','annonceFactory',function($
 
 
 
-//controller gardant lassesion
+//CTRL CONNEXION
 app.controller("signinCtrl",['$scope','$http','$location','AppSession', function($scope,$http,$location,AppSession) {
 
 
@@ -34,12 +35,12 @@ app.controller("signinCtrl",['$scope','$http','$location','AppSession', function
 		.success(function(user) {
 			if((user=="")||(user==null)){
 				alert("email ou mot de passe éronné")
-				alert ($scope.email)
-
 				$location.url('/connexion');
 			}else {
 				AppSession.setData(user);
 				$location.url('/');
+				//refresh after redirect to connect to own socket
+				setTimeout('window.location.reload()', 0)
 			}
 		})
 		.error(function(status) {
@@ -49,15 +50,27 @@ app.controller("signinCtrl",['$scope','$http','$location','AppSession', function
 }]);
 
 
-app.controller('HeaderController', ['$scope','$location', 'AppSession',function($scope, $location,AppSession) {
+//CTRL HEADER SWICTH ENTRE UTILISATEUR CONNECTE ET NON-CONNECTE
+app.controller('HeaderController', ['$scope','$rootScope','$location', 'AppSession','$http',function($scope,$rootScope, $location,AppSession,$http) {
 	$scope.user = AppSession ;
 
 	$scope.logout = function() {
-		AppSession.setData(null);
-		$location.url('/');
+		$http.post('http://localhost:8080/alda-projet/alda/users/logout/'+ AppSession.getData().email)
+		.success(function(data) {
+			alert("vous allez vous deconnecter !")
+			AppSession.setData(null);
+			$rootScope.closeChat();
+			$location.url('/');
+		})
+		.error(function(status) {
+			alert('erreur de deconnexion :'+status);
+		});
+
 	}
 }]);
 
+
+//CTRL MODIFICATION DE MES INFOS
 app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',function($scope,$http ,$location, AppSession) {
 	$scope.user = AppSession ;
 	$scope.edit =false;
@@ -88,6 +101,7 @@ app.controller('mesinfosCtrl', ['$scope','$http','$location','AppSession',functi
 }]);
 
 
+//CTRL MODIFICATION ANNONCE
 app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',function($scope,$http ,$location, $stateParams) {
 
 
@@ -129,7 +143,9 @@ app.controller('monAnnonceCtrl', ['$scope','$http','$location','$stateParams',fu
 
 }]);
 
-app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$timeout', function ($scope,AppSession,$location, Upload, $timeout) {
+
+//CTRL AJOUT D'ANNONCE
+app.controller('annonceCtrl', ['$scope','$rootScope','AppSession','$location', 'Upload', '$timeout', function ($scope,$rootScope,AppSession,$location, Upload, $timeout) {
 
 	$scope.model ={};
 	$scope.model.mailAnnonceur=AppSession.getData().email;
@@ -139,6 +155,7 @@ app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$ti
 	}
 
 	$scope.uploadPic = function(file) {
+
 		$scope.announcement = {
 				name: $scope.model.name,
 				description :$scope.model.description,
@@ -189,7 +206,7 @@ app.controller('annonceCtrl', ['$scope','AppSession','$location', 'Upload', '$ti
 
 
 
-//controller pour l'inscription
+//CTRL INSCRIPTION
 app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession', function($scope,$http,$location,$state,AppSession) {
 
 	$scope.signup=function(){
@@ -209,6 +226,8 @@ app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession',
 				}else {
 					AppSession.setData(user);
 					$location.url('/');	
+					$window.location.url="/";
+					$window.location.reload()
 				}
 			})
 			.error(function(status) {
@@ -218,6 +237,9 @@ app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession',
 	}
 }]);
 
+
+
+// CTRL CONSULTER ET GERER SES PROPRES ANNONCES
 
 app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','annonceFactory','AppSession', function($scope,$http,$location,$uibModal, annonceFactory,AppSession) {
 
@@ -232,14 +254,31 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 	});
 
 
-
+   
 	$scope.consulter =function(id){
 		$location.path('/monannonce/' + id);
 		// console.log(JSON.stringify(id));
 	}
+	
+	$scope.marquerVendu=function(annonce){
+		alert(annonce.statusVendu)
 
+		if(annonce.statusVendu=='VENDU'){
+			alert("votre annonce est déjà marqué comme vendu!")
+		}else{
+			$http.put('http://localhost:8080/alda-projet/alda/announcements/isSold',annonce)
+			.success(function(data) {
+				console.log(JSON.stringify(data));
+				$location.url('/mesannonces');
+				alert('Vous venez de marquer votre annonce comme vendu!')
+			})
+			.error(function(status) {
+				console.log(status);
+			});
+		}	
+	}
 
-	//les modals
+	//modal suppression d'une annonce
 	$scope.openDeleteModal=function(ident){	
 		var dialogOpts = {
 				backdrop: true,
@@ -283,7 +322,11 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 }]);
 
 
-app.controller('infoAnnonceCtrl', ['$scope','$http','$stateParams',function($scope,$http , $stateParams) {
+
+
+//CTRL CONSULTER ANNONCES TIERS ET CONTACT ANNONCEUR
+
+app.controller('infoAnnonceCtrl', ['$scope','$rootScope','$http','$stateParams','$compile','$window',function($scope,$rootScope,$http , $stateParams,$compile,$window) {
 
 
 	$scope.id = $stateParams.id
@@ -298,12 +341,39 @@ app.controller('infoAnnonceCtrl', ['$scope','$http','$stateParams',function($sco
 		console.log(status);
 	});
 
+	$scope.openChat=function(){
 
+		$http.get('http://localhost:8080/alda-projet/alda/users/connectedUsers')
+		.success(function(data) {
+			$scope.connectedUsers = data
+			console.log(JSON.stringify(data))
+			var isconnected;
+			for(var key in $scope.connectedUsers){
+				console.log(JSON.stringify($scope.connectedUsers[key]))
+				if( $scope.connectedUsers[key]==$scope.annonce.mailAnnonceur){
+					isconnected=true;
+					$rootScope.chatVisibility=true;
+					$rootScope.chatWith=$scope.annonce.mailAnnonceur;
+					$rootScope.connectToChatserver($rootScope.chatWith);
+					break;
+				} else {
+					isconnected=false;
+				}
+			}
+			if(isconnected==false){
+				alert("proprietaire non connecté!Vous pouvez lui envoyer un email")
+			}
+		})
+		.error(function(status) {
+			console.log(status);
+		});
 
-
-
+	}
 }]);
 
+
+
+//CTRL MOT DE PASSE OUBLIE :ENVOI EMAIL PAR JAVA MAIL
 app.controller('passwordCtrl',['$scope','$http','$location',function($scope,$http,$location) {
 
 	$scope.submitPassword =function(){
@@ -329,8 +399,71 @@ app.controller('passwordCtrl',['$scope','$http','$location',function($scope,$htt
 }])
 
 
-app.controller("eventsCtrl",['$scope', function($scope){
 
+
+
+//CTRL CHAT WEBSOCKET
+
+app.controller('chatCtrl', function ($scope ,$rootScope,AppSession) {
+	$rootScope.chatVisibility=false;
+
+	$rootScope.closeChat=function(){
+		$rootScope.wsocket.close();
+		$rootScope.chatWindow=null;
+		$rootScope.chatVisibility=false;
+		$rootScope.chatWith='';
+	}
+
+	$rootScope.serviceLocation = "ws://localhost:8080/alda-projet/chat/"
+		$scope.message={};
+	$rootScope.chatWindow=[]
+	$rootScope.room = '';
+
+	$scope.onMessageReceived=function(evt) {
+		//actualiser le rootscope
+		setTimeout(function() {
+			$rootScope.chatVisibility=true
+			$scope.msg = JSON.parse(evt.data); // native API
+			$rootScope.chatWindow.push($scope.msg)
+			console.log("window object------------->   ::"+JSON.stringify($rootScope.chatWindow))	
+			$rootScope.$apply(); //this triggers a $digest
+		}, 0);
+
+	}
+
+	$rootScope.connectToChatserver = function(room) {
+		console.log("connectToChatserver")
+		$rootScope.wsocket = new WebSocket($rootScope.serviceLocation + room);
+		$rootScope.wsocket.onmessage = $scope.onMessageReceived;
+	}
+
+	$rootScope.submitMessage=function() {
+		var msg = '{"message":"' + $scope.message.contenu + '", "sender":"'
+		+ AppSession.getData().email + '","receiver":"'+ $rootScope.chatWith +'","received":""}';
+		console.log("I m gonna send message")
+		$rootScope.wsocket.send(msg);
+		//$message.val('').focus();
+	}
+
+	$scope.submit=function(evt) {
+		evt.preventDefault();
+	}
+
+	//des la connexion, le client se connecte à son room
+	if(AppSession.getData()!=null){
+		$rootScope.connectToChatserver(AppSession.getData().email);
+	}
+
+});
+
+
+
+
+
+
+//CTRL EVENEMENT SERVER SENT EVENT
+
+app.controller("eventsCtrl",['$rootScope', function($rootScope){
 	$scope.bool=false;
 
 	//events add announcement
@@ -378,7 +511,6 @@ app.controller("eventsCtrl",['$scope', function($scope){
 
 
 	//source.close();
-
 
 }])
 

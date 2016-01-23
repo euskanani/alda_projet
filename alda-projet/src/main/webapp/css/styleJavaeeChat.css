@@ -1,0 +1,30 @@
+#chatroom {
+	font-size: 16px;
+	height: 40px;
+	line-height: 40px;
+	width: 300px;
+}
+
+.received {
+	width: 160px;
+	font-size: 10px;
+}
+
+/*
+sticky div
+*/
+
+.sticky{
+	right: 0;
+	bottom: 0;
+	width: 40%;
+	height: 40%;
+    overflow-y:scroll;
+}
+
+
+.chat-wrapper{
+	box-shadow: 1px 1px 12px #555;
+    border-radius:7px;
+    background-color:#D0D0D0 ; 
+}
