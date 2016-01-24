@@ -1,23 +1,6 @@
 
-var app = angular.module('myApp',['ngResource','ui.router','ngFileUpload','ui.bootstrap'])
+var app = angular.module('myApp',['ngResource','ui.router','ngFileUpload','ui.bootstrap','sticky'])
 
-
-
-/*
-var url = "http://localhost:8080/ExerciseJPAWithMysql/alda/events";
-var source = new EventSource(url);
-
-
-
-source.onmessage = function (event) {
-	console.log(event.data);
-	alert(JSON.stringify(event.data))
-}
-source.addEventListener("name", function(event) {
-	console.log(event.name + " " + event.data);
-	alert(event.name + " " +event.data)
-})
-*/
 
 //using ui-router
 app.config(function($stateProvider, $urlRouterProvider){   
@@ -94,10 +77,14 @@ app.config(function($stateProvider, $urlRouterProvider){
 		templateUrl: "partials/lostpassword.html",
 		controller: 'passwordCtrl'
 	})
-	
+
+	.state('alert', {
+		url: "/alert",
+		templateUrl: "partials/alert.html",
+		controller: 'eventsCtrl'
+	})
+
 })
-
-
 
 
 /*//using ngRouter
@@ -111,13 +98,3 @@ app.config(['$routeProvider', function ($routeProvider) {
 //	$locationProvider.html5Mode(true);
 
 }]); */
-
-
-
-/*http://localhost:8080/ExerciseJPAWithMysql-1.0-SNAPSHOT/alda/users/addUser
-       {
-        "email": "emailREST@gmail.com",
-         "password": "passwordREST"
-       }
-
- */

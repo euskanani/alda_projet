@@ -16,10 +16,38 @@
 <link href="css/boot-business.css" rel="stylesheet">
 <link href="css/picture.css" rel="stylesheet">
 <link href="css/a-annonce.css" rel="stylesheet">
+<link href="css/styleJavaeeChat.css" rel="stylesheet">
 
 </head>
-<body ng-app="myApp">
-
+<body ng-app="myApp" style="background: url('img/content.png')">
+	<div sticky offset="100" class="sticky">
+		<div class="chat-wrapper" data-ng-show="chatVisibility"
+			data-ng-controller="chatCtrl">
+			<form id="do-chat">
+				<h2 class="alert alert-success"></h2>
+				<table id="response" class="table table-bordered"
+					ng-repeat="message in chatWindow">
+					<tr>
+						<td class="received">{{ message.received }}</td>
+						<td class="user label label-info">{{ message.sender }}</td>
+						<td class="message badge">{{ message.message }}</td>
+					</tr>
+				</table>
+				<fieldset class="form-group">
+					<!--  <legend>Enter your message..</legend> -->
+					<div class="controls">
+						<input type="text" class="input-level form-control" type="text"
+							data-ng-model="message.contenu" placeholder="Your message..."
+							id="message" style="height: 60px" /> <br> <input
+							type="submit" value="Envoyer message" class="btn btn-primary"
+							data-ng-click="submitMessage()">
+						<button class="btn  btn-default" type="button" id="leave-room"
+							data-ng-click="closeChat()">Quitter le chat</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
 	<!-- including header  
 	<div ng-include src="'header.html'"></div> -->
 
@@ -54,22 +82,9 @@
 
 						<li><a data-ng-show="user.isConnected(user.getData())"
 							ui-sref="mesannonces">Mes annonces</a></li>
-
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Produits et services<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li class="nav-header">PRODUITS</li>
-								<li><a ui-sref="product">Product1</a></li>
-								<li><a ui-sref="product">Product2</a></li>
-								<li><a ui-sref="product">Product3</a></li>
-								<li><a ui-sref="products">All products</a></li>
-								<li class="divider"></li>
-								<li class="nav-header">SERVICES</li>
-								<li><a ui-sref="service">Service1</a></li>
-								<li><a ui-sref="service">Service2</a></li>
-								<li><a ui-sref="service">Service3</a></li>
-								<li><a ui-sref="services">Tous les services</a></li>
-							</ul></li>
+							
+						<li><a ui-sref="alert"
+							ng-show="user.isConnected(user.getData())">Cr&eacute;er une alerte</a></li>
 
 						<li><a ui-sref="annonce"
 							ng-show="user.isConnected(user.getData())">Ajouter une
@@ -83,8 +98,8 @@
 							<ul class="dropdown-menu">
 								<li><a ui-sref="mesannonces">Mes annonces</a></li>
 								<li><a ui-sref="mesinfos">Mes informations</a></li>
-								<li><a href="patnerships.html">Historique</a></li>
-								<li><a href="news.html">Mes annonces préférés</a></li>
+								<li><a href="#">Historique</a></li>
+								<li><a href="#">Mes annonces préférés</a></li>
 								<li><a href="#" ng-click="logout()">Deconnexion</a></li>
 							</ul></li>
 
@@ -104,20 +119,9 @@
 
 	<!-- End: HEADER -->
 
-	<br>
-	<div data-ng-controller="eventsCtrl">
-		<div data-ng-show="visible" data-ng-init="visible=bool">{{
-			message.emplacement }} viens de s'inscire sur AldaMarket</div>
-	</div>
-
+	<!-- /container -->
 
 	<div ui-view></div>
-
-
-
-
-	<!-- including footer 
-   <div ng-include src="'footer.html'"></div> -->
 
 
 	<!-- Start: FOOTER -->
@@ -226,6 +230,10 @@
 		src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 	<script type="text/javascript"
 		src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+	<!-- fix div on top -->
+	<script type="text/javascript"
+		src="bower_components/ngSticky/lib/sticky.js"></script>
 	<script type="text/javascript" src="indexRoute.js"></script>
 	<script type="text/javascript" src="js/services.js"></script>
 	<script type="text/javascript" src="js/controllers.js"></script>

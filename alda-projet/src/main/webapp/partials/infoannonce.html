@@ -26,7 +26,7 @@
 						le propri&eacute;taire</button>
 					<br> <br>
 
-					<div id="image">
+					<div id="image" style="width: 100%; height: 100%; overflow-x: scroll">
 
 						<div class="image-and-nb">
 							<img ng-src="data:image/JPEG;base64,{{annonce.img1}}">
@@ -49,6 +49,13 @@
 						:</strong> {{annonce.surface }} m<sup>2</sup> <br> <br> <strong>Coordonn&eacute;es
 						: </strong><br> <br> <strong>Mail :</strong>
 					{{annonce.mailAnnonceur}} <br> <strong> Telephone :</strong>{{annonce.user.telephone}}
+					<div>
+						<br> <br>
+						<a class="btn btn-default"  data-ng-click="openChat()">chatter avec
+							le propri&eacute;taire</a>
+						<br>
+						<br>
+					</div>
 					<div id="image">
 
 						<div class="image-and-nb">

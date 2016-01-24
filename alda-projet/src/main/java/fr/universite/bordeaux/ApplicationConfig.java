@@ -12,6 +12,7 @@ import javax.ws.rs.core.Application;
 import org.glassfish.jersey.media.sse.SseFeature;
 
 import fr.universite.bordeaux.resources.AnnoucementResource;
+import fr.universite.bordeaux.resources.ChatEndpoint;
 import fr.universite.bordeaux.resources.UserResource;
 //import fr.universite.bordeaux.sseresources.SseResource;
 
