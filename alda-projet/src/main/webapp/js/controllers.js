@@ -261,16 +261,15 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 	}
 	
 	$scope.marquerVendu=function(annonce){
-		alert(annonce.statusVendu)
 
 		if(annonce.statusVendu=='VENDU'){
 			alert("votre annonce est déjà marqué comme vendu!")
 		}else{
 			$http.put('http://localhost:8080/alda-projet/alda/announcements/isSold',annonce)
 			.success(function(data) {
-				console.log(JSON.stringify(data));
-				$location.url('/mesannonces');
 				alert('Vous venez de marquer votre annonce comme vendu!')
+								$location.url('/mesannonces');
+				location.reload(); 
 			})
 			.error(function(status) {
 				console.log(status);
@@ -291,7 +290,8 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 							method : 'DELETE',
 							url :'http://localhost:8080/alda-projet/alda/announcements/'+ id})
 							.success(function(status) {		
-								window.location.reload(true); 
+								//window.location.reload(true); 
+								location.reload(); 
 							})
 							.error(function(status) {
 								console.log("failed"+status);
