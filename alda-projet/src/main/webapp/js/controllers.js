@@ -1,6 +1,6 @@
 //CTRL AFFICHAGE DE TOUS LES ANNONCES
 app.controller('customersCtrl',['$scope','$location','annonceFactory',function($scope,$location, annonceFactory) {
-	
+
 	//$scope.names = annonc;eFactory.query()
 	annonceFactory.get().$promise.then(function(data) {
 		$scope.names= data
@@ -239,7 +239,7 @@ app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession',
 
 
 
-// CTRL CONSULTER ET GERER SES PROPRES ANNONCES
+//CTRL CONSULTER ET GERER SES PROPRES ANNONCES
 
 app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','annonceFactory','AppSession', function($scope,$http,$location,$uibModal, annonceFactory,AppSession) {
 
@@ -254,12 +254,12 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 	});
 
 
-   
+
 	$scope.consulter =function(id){
 		$location.path('/monannonce/' + id);
 		// console.log(JSON.stringify(id));
 	}
-	
+
 	$scope.marquerVendu=function(annonce){
 
 		if(annonce.statusVendu=='VENDU'){
@@ -326,7 +326,7 @@ app.controller("mesAnnoncesCtrl",['$scope','$http','$location','$uibModal','anno
 
 //CTRL CONSULTER ANNONCES TIERS ET CONTACT ANNONCEUR
 
-app.controller('infoAnnonceCtrl', ['$scope','$rootScope','$http','$stateParams','$compile','$window',function($scope,$rootScope,$http , $stateParams,$compile,$window) {
+app.controller('infoAnnonceCtrl', ['$scope','$rootScope','$http','$stateParams','$compile','$window','AppSession',function($scope,$rootScope,$http , $stateParams,$compile,$window,AppSession) {
 
 
 	$scope.id = $stateParams.id
@@ -341,32 +341,36 @@ app.controller('infoAnnonceCtrl', ['$scope','$rootScope','$http','$stateParams',
 		console.log(status);
 	});
 
-	$scope.openChat=function(){
-
-		$http.get('http://localhost:8080/alda-projet/alda/users/connectedUsers')
-		.success(function(data) {
-			$scope.connectedUsers = data
-			console.log(JSON.stringify(data))
-			var isconnected;
-			for(var key in $scope.connectedUsers){
-				console.log(JSON.stringify($scope.connectedUsers[key]))
-				if( $scope.connectedUsers[key]==$scope.annonce.mailAnnonceur){
-					isconnected=true;
-					$rootScope.chatVisibility=true;
-					$rootScope.chatWith=$scope.annonce.mailAnnonceur;
-					$rootScope.connectToChatserver($rootScope.chatWith);
-					break;
-				} else {
-					isconnected=false;
+	$scope.openChat=function(){		
+		if(AppSession.getData()==null){
+			console.log('AppSession.getData() is null')
+			alert("Veuillez vous connecter pour povoir chatter avec le propriétaire !")
+		}else {
+			$http.get('http://localhost:8080/alda-projet/alda/users/connectedUsers')
+			.success(function(data) {
+				$scope.connectedUsers = data
+				console.log(JSON.stringify(data))
+				var isconnected;
+				for(var key in $scope.connectedUsers){
+					console.log(JSON.stringify($scope.connectedUsers[key]))
+					if( $scope.connectedUsers[key]==$scope.annonce.mailAnnonceur){
+						isconnected=true;
+						$rootScope.chatVisibility=true;
+						$rootScope.chatWith=$scope.annonce.mailAnnonceur;
+						$rootScope.connectToChatserver($rootScope.chatWith);
+						break;
+					} else {
+						isconnected=false;
+					}
 				}
-			}
-			if(isconnected==false){
-				alert("proprietaire non connecté!Vous pouvez lui envoyer un email")
-			}
-		})
-		.error(function(status) {
-			console.log(status);
-		});
+				if(isconnected==false){
+					alert("proprietaire non connecté!Vous pouvez lui envoyer un email")
+				}
+			})
+			.error(function(status) {
+				console.log(status);
+			});
+		}
 
 	}
 }]);
@@ -469,7 +473,7 @@ app.controller("eventsCtrl",['$rootScope', function($rootScope){
 	//events add announcement
 	if(typeof(EventSource) !== "undefined") {
 		console.log('ici')
-		var url = "alda/announcements/announcementEvent";
+		var url = "http://localhost:8080/alda-projet/alda/announcements/announcementEvent";
 		var source = new EventSource(url);
 		console.log('creation source bien fait')
 
