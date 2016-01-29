@@ -1,6 +1,6 @@
 # alda_projet
 
-Configuration du serveur Tomee(1.7.0/1.7.1/1.7.2) pour envoyer pour l'enoie de l'email 
+CONFIGURATION DU SERVEUR TOMEE POUR EVITER LES CONFLITS JAVA MAIL:
 avec geronimo-javamail et ignorer java mail de JEE:
 
 1. Dans le repertoire de tomee: -> Conf -> system.properties , 
