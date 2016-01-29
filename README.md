@@ -24,9 +24,9 @@
        Le serveur garde dans sa session, la liste des utilisateurs connectés.Du coup au redemarrage du serveur,
        Il faut aussi redemarrer le navigateur puis se reconnecter  pour reinitialiser la session côté serveur.
   
- ## INSTALLATIONS DES DEPENDANCES  :
+## INSTALLATIONS DES DEPENDANCES  :
  
-       Après import du projet, lancer ~~~bash bower install ~~~ pour installer les modules angular
-       Il faut aussi redemarrer le navigateur puis se reconnecter  pour reinitialiser la session côté serveur.
+   Après import du projet, lancer bower install à la racine alda-projet/src/main/webapp pour installer les modules angular.
+ 
  
 
