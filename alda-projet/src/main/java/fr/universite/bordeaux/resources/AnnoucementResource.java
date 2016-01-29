@@ -168,7 +168,7 @@ public class AnnoucementResource {
 			// Broadcasting a named "add" event with the current size of the items collection in data
 			//  BROADCASTER.broadcast(new OutboundEvent.Builder().name("emplacement").mediaType(MediaType.TEXT_PLAIN_TYPE).data(String.class,announce.getEmplacement()).build());
 
-			System.out.println(announce.getEmplacement());
+			System.out.println("je vais envoyer une notification :"+announce.getEmplacement());
 			OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
 			OutboundEvent event = eventBuilder.name("emplacement")
 					.mediaType(MediaType.TEXT_PLAIN_TYPE)
