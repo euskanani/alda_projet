@@ -44,8 +44,7 @@ public class UserResource {
 	@Context
 	ServletContext connectedUsers;
 	
-	//@Resource(name = "mail/Default")//, type = javax.mail.Session.class)
-	//Session session;
+	
 
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
@@ -209,7 +208,7 @@ public class UserResource {
             message.setFrom(new InternetAddress("kenetienne15@gmail.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("resetting password..");
-			String emailBody = "votre mot de passe est : " +userRepository.findUserByEmail(email).getPassword()+"\n   Suivez ce lien http://localhost:8080/alda-projet/index.html#/connexion  pour vous connecter.\n\nCordialement, \n\nAldaMarket Admin";
+			String emailBody = "votre mot de passe est : " +userRepository.findUserByEmail(email).getPassword()+"\n   Suivez ce lien http://localhost:8080/alda-projet/index.html#/connexion  pour vous connecter.\n\nCordialement, \n\nalda-projet Admin";
 			message.setText(emailBody);
 
             Transport.send(message);

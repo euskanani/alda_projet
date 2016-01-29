@@ -41,12 +41,6 @@ app.factory("AppSession", function($window, $rootScope) {
 			$window.localStorage && $window.localStorage.setItem('my-storage', JSON.stringify(val));
 			return this;
 		},
-		/*update : function() {
-			return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/users/updateUser/:email',{email : '@email'},
-					{
-				update :    {method:'PUT' , params: {id: '@id'}}  
-					});
-		},*/
 		getData: function() {
 			return JSON.parse($window.localStorage && $window.localStorage.getItem('my-storage'));
 		},
@@ -63,39 +57,4 @@ app.factory("AppSession", function($window, $rootScope) {
 });
 
 
-
-/*
-app.service('fileUpload', ['$http', function ($http) {
-    this.uploadFileToUrl = function(data, uploadUrl){
-        var fd = new FormData();
-        for(var key in data){
-        	fd.append(key, data[key]);
-        	console.log(data[key])
-        }
-        $http({
-            method  : 'POST',
-        	url : uploadUrl,
-        	data : fd, 
-        	headers: { 'Content-Type': undefined },
-            transformRequest: angular.identity
-        })
-        .success(function(){
-        	console.log("success"+status)
-        })
-        .error(function(){
-        	console.log("failed"+status)
-        });
-    }
-}]);*/
-
-
-/*
-app.factory('userFactory', ['$resource', function($resource){
-	return $resource('http://localhost:8080/ExerciseJPAWithMysql/alda/users/addUser/:email',{email : '@email'},
-			{
-		'get':    {method:'GET',isArray:true }  //config get in order to use it to get array json
-			});
-}])
-
-*/
 
