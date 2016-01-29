@@ -217,7 +217,7 @@ app.controller("signupCtrl",['$scope','$http','$location','$state','AppSession',
 			alert("le mot de passe doit avoir au moins 8 caracteres")
 		} else{
 			var params ={ email: $scope.signupEmail,password :$scope.signupPassword }
-			alert($scope.signupEmail + "  "+ $scope.signupPassword)
+			//alert($scope.signupEmail + "  "+ $scope.signupPassword)
 			$http.post('http://localhost:8080/alda-projet/alda/users/addUser',params)
 			.success(function(user) {
 				if(user==""){

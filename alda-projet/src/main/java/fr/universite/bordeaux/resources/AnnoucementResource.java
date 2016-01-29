@@ -161,13 +161,8 @@ public class AnnoucementResource {
 			announce.setStatusVendu("DISPONIBLE");  
 			announce.setUser(userRepository.findUserByEmail(announce.getMailAnnonceur()));
 			announcementRepository.addAnnouncement(announce);
-
-			//create event to broadCast
-			// Broadcasting an un-named event with the name of the newly added item in data
-			// BROADCASTER.broadcast(new OutboundEvent.Builder().data(String.class,announce).build());
-			// Broadcasting a named "add" event with the current size of the items collection in data
-			//  BROADCASTER.broadcast(new OutboundEvent.Builder().name("emplacement").mediaType(MediaType.TEXT_PLAIN_TYPE).data(String.class,announce.getEmplacement()).build());
-
+  
+          // broadcast  l'emplacement pour envoyer les criteres de recherche aux personnes concernée  
 			System.out.println(announce.getEmplacement());
 			OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
 			OutboundEvent event = eventBuilder.name("emplacement")
@@ -188,11 +183,5 @@ public class AnnoucementResource {
 }
 
 
-/*int i = 234;
-byte b = (byte) i;
-System.out.println(b); // -22
-int i2 = b & 0xFF;
-System.out.println(i2); // 234
- * */
 
 
