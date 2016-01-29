@@ -14,7 +14,7 @@
 Parfois,pour des raisons de certification sur windows, Java mail recommande de deployer le projet avec JRE plutôt que JDK.
 
 
-i
+
 ## CONFIGURATION DU CHAT :
  
        1.Pour lancer le chat avec le proprietaire, il faut se connecter
