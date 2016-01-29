@@ -28,7 +28,7 @@
  
    Après import du projet, lancer 
    ~~~bash
-      .\git\alda_projet\alda-projet\src\main\webapp> bower install 
+      \git\alda_projet\alda-projet\src\main\webapp> bower install 
    ~~~
    pour installer les modules angular.
  
