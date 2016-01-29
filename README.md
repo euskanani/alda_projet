@@ -9,7 +9,7 @@ utiliser geronimo-javamail et ignorer java mail de JEE:
 
 ~~~bash
      openejb.classloader.forced-skip=javax.mail
-~~
+~~~
 2. Copier le fichier system.properties dans 
    eclipse -> Project explorer -> Servers -> Tomcat v7.0 server at localhost-confg
 
