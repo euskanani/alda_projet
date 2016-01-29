@@ -12,7 +12,7 @@ utiliser geronimo-javamail et ignorer java mail de JEE:
 2. Copier le fichier system.properties dans 
    eclipse -> Project explorer -> Servers -> Tomcat v7.0 server at localhost-confg
 
-
+#
 
 CONFIGURATION DU CHAT :
  
