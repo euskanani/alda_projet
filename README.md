@@ -13,6 +13,7 @@ utiliser geronimo-javamail et ignorer java mail de JEE:
    eclipse -> Project explorer -> Servers -> Tomcat v7.0 server at localhost-confg
 
 
+
 CONFIGURATION DU CHAT :
  
   1.Pour lancer le chat avec le proprietaire, il faut se connecter
