@@ -27,8 +27,9 @@
 ## INSTALLATIONS DES DEPENDANCES  :
  
    Après import du projet, lancer 
-      C:\Users\wemi\git\alda_projet\alda-projet\src\main\webapp> bower install 
-   
+   ~~~bash
+      .\git\alda_projet\alda-projet\src\main\webapp> bower install 
+   ~~~
    pour installer les modules angular.
  
  
