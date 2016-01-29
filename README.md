@@ -19,4 +19,10 @@
        2.Pour chatter avec le proprietaire, il faut qu'il soit lui aussi connecté
   
 
+## SESSION SERVEUR ET SESSION CLIENT :
+ 
+       Le serveur garde dans sa session, la liste des utilisateurs connectés.Du coup au redemarrage du serveur,
+       Il faut aussi redemarrer le navigateur pour tuer la session client 
   
+  
+
