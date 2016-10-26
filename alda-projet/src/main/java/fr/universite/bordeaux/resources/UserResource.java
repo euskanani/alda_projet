@@ -197,7 +197,7 @@ public class UserResource {
             final Session session = Session.getInstance(props, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("kenetienne15@gmail.com", "Madagascar8");
+                    return new PasswordAuthentication("kenetienne15@gmail.com", "xxxxxxxxxxx");
                 }
             });
 
